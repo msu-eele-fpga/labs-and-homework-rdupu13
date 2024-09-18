@@ -107,6 +107,7 @@ work/
 transcript
 
 # ModelSim files
+vsim.wlf
 *.cr.mti
 *.mpf
 transcript
