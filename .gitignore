@@ -106,6 +106,10 @@ vsim.wlf
 work/
 transcript
 
+# ModelSim files
+*.cr.mti
+*.mpf
+transcript
 
 # Vim swap files
 *.swp
