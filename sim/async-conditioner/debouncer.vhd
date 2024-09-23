@@ -30,41 +30,48 @@ architecture debouncer_arch of debouncer is
 	
 	begin
 		
-		-- Next state logic
 		NEXT_STATE_LOGIC : process(clk, rst, curr_state, input, count) is
 		begin
-			if falling_edge(rst) then
+			if rst = '1' then
+				-- Reset state
 				curr_state <= S_WAIT_FOR_PRESS;
+				
 			elsif rising_edge(clk) then
 				case (curr_state) is
+				
+					-- Next state logic
 					when S_WAIT_FOR_PRESS =>
 						count <= 0;
-						curr_state <= S_PRESSED_BOUNCING when input = '1'; 
-									  S_WAIT_FOR_PRESS   when others;
+						curr_state <= S_PRESSED_BOUNCING  when input = '1' else
+									  S_WAIT_FOR_PRESS;
 					when S_PRESSED_BOUNCING =>
 						count <= count + 1;
-						curr_state <= S_WAIT_FOR_RELEASE when count >= (debounce_time / clk_period); 
-									  S_PRESSED_BOUNCING when others;
+						curr_state <= S_WAIT_FOR_RELEASE  when count >= (debounce_time / clk_period) - 2 else
+									  S_PRESSED_BOUNCING;
 					when S_WAIT_FOR_RELEASE =>
 						count <= 0;
-						curr_state <= S_RELEASED_BOUNCING when input = '0'; 
-									  S_WAIT_FOR_RELEASE  when others;
+						curr_state <= S_RELEASED_BOUNCING when input = '0' else
+									  S_WAIT_FOR_RELEASE;
 					when S_RELEASED_BOUNCING =>
 						count <= count + 1;
-						curr_state <= S_WAIT_FOR_PRESS    when count >= (debounce_time / clk_period); 
-									  S_RELEASED_BOUNCING when others;
+						curr_state <= S_WAIT_FOR_PRESS    when count >= (debounce_time / clk_period) - 2 else
+									  S_RELEASED_BOUNCING;
+									  
 				end case;
 			end if;
 		end process;
 		
-		-- Output logic
+		-- Moore machine
 		OUTPUT_LOGIC : process(curr_state) is
 		begin
 			case (curr_state) is
+			
+				-- Output logic
 				when S_WAIT_FOR_PRESS =>    debounced <= '0';
 				when S_PRESSED_BOUNCING =>  debounced <= '1';
 				when S_WAIT_FOR_RELEASE =>  debounced <= '1';
 				when S_RELEASED_BOUNCING => debounced <= '0';
+				
 			end case;
 		end process;
 		

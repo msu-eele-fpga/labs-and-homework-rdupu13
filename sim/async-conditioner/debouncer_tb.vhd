@@ -18,20 +18,20 @@ architecture testbench of debouncer_tb is
 	type natural_array is array (natural range<>) of natural;
 	type time_array is array (natural range<>) of time;
 
-	signal clk_tb     : std_ulogic := '0';
-	signal rst_tb     : std_ulogic := '0';
+	signal clk_tb	  : std_ulogic := '0';
+	signal rst_tb	  : std_ulogic := '0';
 	signal bouncer_tb : std_ulogic := '0';
 
 	constant BOUNCE_PERIOD : time := 100 ns;
 
-	constant DEBOUNCE_TIME_1US       : time    := 1000 ns;
-	constant DEBOUNCE_CYCLES_1US     : natural := DEBOUNCE_TIME_1US / BOUNCE_PERIOD;
-	constant DEBOUNCE_CLK_CYCLES_1US : natural := DEBOUNCE_TIME_1US / CLK_PERIOD;
+	constant DEBOUNCE_TIME_1US		  : time	:= 1000 ns;
+	constant DEBOUNCE_CYCLES_1US	  : natural := DEBOUNCE_TIME_1US / BOUNCE_PERIOD;
+	constant DEBOUNCE_CLK_CYCLES_1US  : natural := DEBOUNCE_TIME_1US / CLK_PERIOD;
 
-	constant DEBOUNCE_TIME_10US       : time    := 10 us;
-	constant DEBOUNCE_CYCLES_10US     : natural := DEBOUNCE_TIME_10US / BOUNCE_PERIOD;
+	constant DEBOUNCE_TIME_10US		  : time	:= 10 us;
+	constant DEBOUNCE_CYCLES_10US	  : natural := DEBOUNCE_TIME_10US / BOUNCE_PERIOD;
 	constant DEBOUNCE_CLK_CYCLES_10US : natural := DEBOUNCE_TIME_10US / CLK_PERIOD;
-	signal debounced_tb : std_ulogic_vector(0 to 1);
+	signal debounced_tb				  : std_ulogic_vector(0 to 1);
 
 	constant DEBOUNCE_TIMES : time_array(0 to 1) := (
 		DEBOUNCE_TIME_1US,
@@ -48,40 +48,41 @@ architecture testbench of debouncer_tb is
 		DEBOUNCE_CLK_CYCLES_10US
 	);
 
-	procedure bounce_signal is (
-		signal bounce          : out std_ulogic;
-		constant BOUNCE_PERIOD : time;
-		constant BOUNCE_CYCLES : natural;
-		constant FINAL_VALUE   : std_ulogic
-	)
+	procedure bounce_signal (
+			signal bounce          : out std_ulogic;
+			constant BOUNCE_PERIOD : time;
+			constant BOUNCE_CYCLES : natural;
+			constant FINAL_VALUE   : std_ulogic
+		) is
 
-	-- If BOUNCE_CYCLES is not an integer multiple of 4, the division
-	-- operation will only return the integer part (i.e., perform a floor
-	-- operation). Thus, we need to calculate how many cycles are remaining
-	-- after waiting for 3 * BOUNCE_CYCLES_BY_4 BOUNCE_PERIODs. If BOUNCE_CYCLES
-	-- is an integer multiple of 4, then REMAINING_CYCLES will be equal to
-	-- BOUNCE_CYCLES_BY_4.
+		-- If BOUNCE_CYCLES is not an integer multiple of 4, the division
+		-- operation will only return the integer part (i.e., perform a floor
+		-- operation). Thus, we need to calculate how many cycles are remaining
+		-- after waiting for 3 * BOUNCE_CYCLES_BY_4 BOUNCE_PERIODs. If BOUNCE_CYCLES
+		-- is an integer multiple of 4, then REMAINING_CYCLES will be equal to
+		-- BOUNCE_CYCLES_BY_4.
 	
-	constant BOUNCE_CYCLES_BY_4 : natural := BOUNCE_CYCLES / 4;
-	constant REMAINING_CYCLES   : natural := BOUNCE_CYCLES - (3 * BOUNCE_CYCLES_BY_4);
+		constant BOUNCE_CYCLES_BY_4 : natural := BOUNCE_CYCLES / 4;
+		constant REMAINING_CYCLES   : natural := BOUNCE_CYCLES - (3 * BOUNCE_CYCLES_BY_4);
 
-begin
+	begin
 	
-	-- Toggle the bouncing input quickly for ~1/4 of the debounce time
-	for i in 1 to BOUNCE_CYCLES_BY_4 loop
-		bounce <= not bounce;
-		wait for BOUNCE_PERIOD;
-	end loop;
+		-- Toggle the bouncing input quickly for ~1/4 of the debounce time
+		for i in 1 to BOUNCE_CYCLES_BY_4 loop
+			bounce <= not bounce;
+			wait for BOUNCE_PERIOD;
+		end loop;
 
-	-- Toggle the bouncing input slowly for ~1/2 of the debounce time
-	for i in 1 to BOUNCE_CYCLES_BY_4 loop
-		bounce <= not bounce;
-		wait for 2 * BOUNCE_PERIOD;
-	end loop;
+		-- Toggle the bouncing input slowly for ~1/2 of the debounce time
+		for i in 1 to BOUNCE_CYCLES_BY_4 loop
+			bounce <= not bounce;
+			wait for 2 * BOUNCE_PERIOD;
+		end loop;
 
-	-- Settle at the final value for the rest of the debounce time
-	bounce <= FINAL_VALUE;
+		-- Settle at the final value for the rest of the debounce time
+		bounce <= FINAL_VALUE;
 		wait for REMAINING_CYCLES * BOUNCE_PERIOD;
+	
 	end procedure bounce_signal;
  
 begin
@@ -176,11 +177,9 @@ begin
 			print("test: before button pressed");
 
 			for i in 1 to 20 loop
-				
 				wait_for_clock_edge(clk_tb);
 				debounced_expected := '0';
 				assert_eq(debounced_tb(debouncer_num), debounced_expected, "before button pressed");
-			
 			end loop;
 			
 			-- while the button is pressed and is bouncing
