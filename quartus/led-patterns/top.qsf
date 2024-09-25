@@ -39,14 +39,16 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CGXFC7C7F23C8
-set_global_assignment -name TOP_LEVEL_ENTITY led_patterns_top
+set_global_assignment -name TOP_LEVEL_ENTITY led_patterns
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:16:07  SEPTEMBER 24, 2024"
 set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
-set_global_assignment -name VHDL_FILE led_patterns_top.vhd
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name VHDL_FILE "../../hdl/led-patterns/pattern_generator.vhd"
+set_global_assignment -name VHDL_FILE "../../hdl/led-patterns/led_patterns.vhd"
+set_global_assignment -name VHDL_FILE "../../hdl/led-patterns/led_pattern_fsm.vhd"

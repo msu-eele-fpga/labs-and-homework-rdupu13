@@ -11,10 +11,10 @@ entity async_conditioner is
 		debounce_time : time
 	);
 	port (
-		clk   : in  std_ulogic;
-		rst   : in  std_ulogic;
-		async : in  std_ulogic;
-		sync  : out std_ulogic
+		clk   : in  std_ulogic; -- System clock
+		rst   : in  std_ulogic; -- System reset (active high)
+		async : in  std_ulogic; -- Asynchronous input
+		sync  : out std_ulogic  -- Synchronous, debounced, and one-pulsed output
 	);
 end entity;
 
