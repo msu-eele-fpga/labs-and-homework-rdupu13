@@ -16,7 +16,10 @@ end entity;
 architecture led_pattern_generator_arch of pattern_generator is
 	
 	signal state_0 : std_ulogic_vector(6 downto 0);
-	signal state_1 : std_ulogic_vector()
+	signal state_1 : std_ulogic_vector(6 downto 0);
+	signal state_2 : std_ulogic_vector(6 downto 0);
+	signal state_3 : std_ulogic_vector(6 downto 0);
+	signal state_4 : std_ulogic_vector(6 downto 0);
 	
 	begin
 		

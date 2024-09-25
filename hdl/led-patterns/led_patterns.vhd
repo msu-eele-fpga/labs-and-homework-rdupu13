@@ -56,8 +56,6 @@ architecture led_patterns_arch of led_patterns is
 			rst               : in  std_ulogic;
 			push_button_pulse : in  std_ulogic;
 			switches          : in  std_ulogic_vector(3 downto 0);
-			hps_led_control   : in  boolean;
-			base_period       : in  unsigned(7 downto 0);
 			led_pattern       : out std_ulogic_vector(7 downto 0)
 		);
 	end component;
