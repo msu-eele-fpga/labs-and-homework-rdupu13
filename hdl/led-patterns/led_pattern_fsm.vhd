@@ -7,17 +7,20 @@ entity led_pattern_fsm is
 		system_clock_period : time := 20 ns
 	);
 	port (
-		clk               : in  std_ulogic;                    -- System clock
+		clk               : in  std_ulogic;                    -- System Clock
 		rst               : in  std_ulogic;                    -- System reset (active high)
-		push_button_pulse : in  std_ulogic;                    -- Push button to change patterns (conditioned by async_conditioner)
+		push_button_pulse : in  std_ulogic;                    -- One-pulsed push button
 		switches          : in  std_ulogic_vector(3 downto 0); -- Switches that determine next pattern
-		led_pattern       : out std_ulogic_vector(7 downto 0)  -- Current LED pattern, displayed if hps_led_control = 0
+		base_period       : in  unsigned(7 downto 0);          -- LED blink rate
+		patten_gen        : in  std_ulogic_vector(6 downto 0); -- LED pattern shown by pattern generator
+		led_pattern       : out std_ulogic_vector(7 downto 0); -- Full current pattern (with base period bit)
+		pattern_sel       : out std_ulogic_vector(2 downto 0)  -- Select which pattern to display
 	);
 end entity;
 
 architecture led_pattern_fsm_arch of led_pattern_fsm is
 	
-	type STATE is ();
+	type STATE is (S_PATTERN_0, S_PATTERN_1, S_PATTERN_2, S_PATTERN_3, S_PATTERN_4, S_SHOW_SWITCHES);
 	
 	signal curr_state : STATE;
 	
@@ -40,7 +43,17 @@ architecture led_pattern_fsm_arch of led_pattern_fsm is
 				curr_state <= 
 			elsif rising_edge(clk) then
 				case (curr_state) then
-					
+					when S_PATTERN_0 =>
+						led_pattern <= 
+					when S_PATTERN_1 =>
+						
+					when S_PATTERN_2 =>
+						
+					when S_PATTERN_3 =>
+						
+					when S_PATTERN_4 =>
+						
+					when S_SHOW_SWITCHES =>
 						
 				end case;
 			end if;

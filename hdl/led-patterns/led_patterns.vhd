@@ -21,6 +21,8 @@ end entity;
 architecture led_patterns_arch of led_patterns is
 	
 	signal push_button_pulse : std_ulogic;
+	signal pattern_gen       : std_ulogic_vector(6 downto 0);
+	signal pattern_sel       : std_ulogic_vector(2 downto 0);
 	signal led_pattern       : std_ulogic_vector(7 downto 0);
 	
 	component async_conditioner is
@@ -41,8 +43,8 @@ architecture led_patterns_arch of led_patterns is
 			system_clock_period : time := 20 ns
 		);
 		port (
-			clk             : in  std_ulogic;                    -- System clock
-			rst             : in  std_ulogic;                    -- System reset (active high)
+			clk             : in  std_ulogic;
+			rst             : in  std_ulogic;
 			
 		);
 	end component;
@@ -56,7 +58,9 @@ architecture led_patterns_arch of led_patterns is
 			rst               : in  std_ulogic;
 			push_button_pulse : in  std_ulogic;
 			switches          : in  std_ulogic_vector(3 downto 0);
-			led_pattern       : out std_ulogic_vector(7 downto 0)
+			patten_gen        : in  std_ulogic_vector(6 downto 0);
+			led_pattern       : out std_ulogic_vector(7 downto 0);
+			pattern_sel       : out std_ulogic_vector(2 downto 0)
 		);
 	end component;
 	
