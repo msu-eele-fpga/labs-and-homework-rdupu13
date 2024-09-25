@@ -37,7 +37,6 @@ architecture led_pattern_fsm_arch of led_pattern_fsm is
 		begin
 			case (curr_state) is
 				
-					
 			end case;
 		end process;
 		

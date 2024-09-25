@@ -12,7 +12,7 @@ entity led_patterns is
 		push_button     : in  std_ulogic;                    -- Push button to change state (active high)
 		switches        : in  std_ulogic_vector(3 downto 0); -- Switches that determine next state
 		hps_led_control : in  boolean;                       -- Software is in control when =1
-		base_period     : in  unsigned(7 downto 0);          -- 
+		base_period     : in  unsigned(7 downto 0);          -- LED blink rate
 		led_reg         : in  std_ulogic_vector(7 downto 0); -- LED register
 		led             : out std_ulogic_vector(7 downto 0)  -- LED pins on board
 	);

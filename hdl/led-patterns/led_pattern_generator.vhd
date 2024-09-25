@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity pattern_generator is
+entity led_pattern_generator is
 	generic (
 		system_clock_period : time := 20 ns
 	);
@@ -13,11 +13,18 @@ entity pattern_generator is
 	);
 end entity;
 
-architecture pattern_generator_arch of pattern_generator is
+architecture led_pattern_generator_arch of pattern_generator is
 	
-	
+	signal state_0 : std_ulogic_vector(6 downto 0);
+	signal state_1 : std_ulogic_vector()
 	
 	begin
+		
+		-- State 0 (reset): one shifting right   at 1/2
+		-- State 1: two shifting left            at 1/4
+		-- State 2: 7 bit up-counter             at 2
+		-- State 3: 7 bit down-counter           at 1/8
+		-- State 4: Base rate in binary rotating at 1/4
 		
 		
 		
