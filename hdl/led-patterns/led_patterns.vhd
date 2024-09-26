@@ -1,6 +1,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.assert_pkg.all;
+use work.print_pkg.all;
+use work.tb_pkg.all;
 
 entity led_patterns is
 	generic (
@@ -72,7 +75,7 @@ architecture led_patterns_arch of led_patterns is
 		BOTTON_PULSE : async_conditioner
 			generic map (
 				clk_period    => system_clock_period,
-				debounce_time => 5 us                  -- Experiment with this!!!
+				debounce_time => 5 us                 -- Experiment with this!!!
 			)
 			port map (
 				clk   => clk,

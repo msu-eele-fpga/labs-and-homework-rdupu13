@@ -25,7 +25,7 @@ architecture async_conditioner_arch of async_conditioner is
 	signal pulsed       : std_ulogic;
 	
 	component synchronizer is
-		port(
+		port (
 			clk   : in  std_ulogic;
 			async : in  std_ulogic;
 			sync  : out std_ulogic
@@ -33,7 +33,7 @@ architecture async_conditioner_arch of async_conditioner is
 	end component;
 	
 	component debouncer is
-		generic(
+		generic (
 			clk_period    : time := 20 ns;
 			debounce_time : time
 		);
