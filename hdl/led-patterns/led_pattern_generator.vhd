@@ -28,7 +28,7 @@ architecture led_pattern_generator_arch of led_pattern_generator is
 	signal pattern_4 : unsigned(6 downto 0);
 	
 	constant ONE_SECOND_COUNT  : natural := 1000000000 ns / system_clock_period;
-	signal   base_period_count : natural := (ONE_SECOND_COUNT * to_integer(base_period)) / 4;
+	signal   base_period_count : natural;
 	
 	signal count        : natural := 0;
 	signal clock_vector : unsigned(4 downto 0);
@@ -47,6 +47,10 @@ architecture led_pattern_generator_arch of led_pattern_generator is
 				count <= 0;
 				clock_vector <= to_unsigned(0, 5);
 			elsif rising_edge(clk) then
+				
+				-- Update base_period_count if it changed
+				base_period_count <= (ONE_SECOND_COUNT * to_integer(base_period)) / 4;
+				
 				-- LSB of clock_vector blinks at 1/8 of base period
 				if count >= base_period_count / 8 then
 					clock_vector <= clock_vector + to_unsigned(1, 5);
@@ -54,6 +58,7 @@ architecture led_pattern_generator_arch of led_pattern_generator is
 				else
 					count <= count + 1;
 				end if;
+			
 			end if;
 			
 		end process;
@@ -62,6 +67,7 @@ architecture led_pattern_generator_arch of led_pattern_generator is
 								   pattern_0, pattern_1, pattern_2, pattern_3, pattern_4,
 								   pattern_sel) is
 		begin
+			
 			if rst = '1' then
 				pattern_0 <= to_unsigned(1, 7);
 				pattern_1 <= to_unsigned(3, 7);
@@ -69,20 +75,20 @@ architecture led_pattern_generator_arch of led_pattern_generator is
 				pattern_3 <= to_unsigned(0, 7);
 				pattern_4 <= base_period(6 downto 0);
 				
-			elsif rising_edge(clock_vector(0)) then -- 1/8 * base_period
+			elsif rising_edge(clock_vector(0)) then         -- 1/8 * base_period
 				pattern_3 <= pattern_3 - to_unsigned(1, 7);
 				
-			elsif rising_edge(clock_vector(1)) then -- 1/4 * base_period
+			elsif rising_edge(clock_vector(1)) then         -- 1/4 * base_period
 				pattern_1 <= rotate_left(pattern_1, 1);
 				pattern_4 <= not pattern_4;
 			
-			elsif rising_edge(clock_vector(2)) then -- 1/2 * base_period
+			elsif rising_edge(clock_vector(2)) then         -- 1/2 * base_period
 				pattern_0 <= rotate_right(pattern_0, 1);
 			
-			elsif rising_edge(clock_vector(3)) then -- 1 * base_period
+			elsif rising_edge(clock_vector(3)) then         -- 1 * base_period
 				bit_seven <= not bit_seven;
 				
-			elsif rising_edge(clock_vector(4)) then -- 2 * base_period
+			elsif rising_edge(clock_vector(4)) then         -- 2 * base_period
 				pattern_2 <= pattern_2 + to_unsigned(1, 7);
 				
 			end if;

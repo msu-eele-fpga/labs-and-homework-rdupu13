@@ -73,7 +73,7 @@ architecture led_patterns_arch of led_patterns is
 			generic map (
 				clk_period    => system_clock_period,
 				debounce_time => 5 us                  -- Experiment with this!!!
-			);
+			)
 			port map (
 				clk   => clk,
 				rst   => rst,
@@ -85,7 +85,7 @@ architecture led_patterns_arch of led_patterns is
 		PATTERN_GENERATION : led_pattern_generator
 			generic map (
 				system_clock_period => system_clock_period
-			);
+			)
 			port map (
 				clk         => clk,
 				rst         => rst,
@@ -97,8 +97,8 @@ architecture led_patterns_arch of led_patterns is
 		-- Finite state machine for pattern switching
 		FSM : led_pattern_fsm
 			generic map (
-				system_clock_period : time := 20 ns
-			);
+				system_clock_period => system_clock_period
+			)
 			port map (
 				clk               => clk,
 				rst               => rst,
