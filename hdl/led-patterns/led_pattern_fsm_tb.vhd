@@ -7,12 +7,12 @@ end entity;
 
 architecture led_pattern_fsm_tb_arch of led_pattern_fsm_tb is
 	
-	signal clk               : std_ulogic;
-	signal rst               : std_ulogic;
-	signal push_button_pulse : std_ulogic;
-	signal switches          : std_ulogic_vector(3 downto 0);
-	signal base_period       : unsigned(7 downto 0);
-	signal led_pattern       : std_ulogic_vector(7 downto 0)
+	signal clk_tb               : std_ulogic;
+	signal rst_tb               : std_ulogic;
+	signal push_button_pulse_tb : std_ulogic;
+	signal switches_tb          : std_ulogic_vector(3 downto 0);
+	signal base_period_tb       : unsigned(7 downto 0);
+	signal led_pattern_tb       : std_ulogic_vector(7 downto 0);
 	
 	component led_pattern_fsm is
 		generic (

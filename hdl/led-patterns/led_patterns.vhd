@@ -21,7 +21,7 @@ end entity;
 architecture led_patterns_arch of led_patterns is
 	
 	signal push_button_pulse : std_ulogic;
-	signal pattern_gen       : std_ulogic_vector(6 downto 0);
+	signal pattern_gen       : std_ulogic_vector(7 downto 0);
 	signal pattern_sel       : std_ulogic_vector(2 downto 0);
 	signal led_pattern       : std_ulogic_vector(7 downto 0);
 	
@@ -43,9 +43,11 @@ architecture led_patterns_arch of led_patterns is
 			system_clock_period : time := 20 ns
 		);
 		port (
-			clk             : in  std_ulogic;
-			rst             : in  std_ulogic;
-			
+			clk         : in  std_ulogic;
+			rst         : in  std_ulogic;
+			base_period : in  unsigned(7 downto 0);
+			pattern_sel : in  std_ulogic_vector(2 downto 0);
+			pattern_gen : out std_ulogic_vector(7 downto 0)
 		);
 	end component;
 	
@@ -58,7 +60,7 @@ architecture led_patterns_arch of led_patterns is
 			rst               : in  std_ulogic;
 			push_button_pulse : in  std_ulogic;
 			switches          : in  std_ulogic_vector(3 downto 0);
-			patten_gen        : in  std_ulogic_vector(6 downto 0);
+			pattern_gen       : in  std_ulogic_vector(7 downto 0);
 			led_pattern       : out std_ulogic_vector(7 downto 0);
 			pattern_sel       : out std_ulogic_vector(2 downto 0)
 		);
@@ -70,30 +72,41 @@ architecture led_patterns_arch of led_patterns is
 		BOTTON_PULSE : async_conditioner
 			generic map (
 				clk_period    => system_clock_period,
-				debounce_time => 5 us
+				debounce_time => 5 us                  -- Experiment with this!!!
 			);
 			port map (
-				clk   => clk
-				rst   => rst
-				async => push_button
+				clk   => clk,
+				rst   => rst,
+				async => push_button,
 				sync  => push_button_pulse
 			);
 		
 		-- Pattern generator
-		PATTERN_GEN : led_pattern_generator
+		PATTERN_GENERATION : led_pattern_generator
+			generic map (
+				system_clock_period => system_clock_period
+			);
 			port map (
-				
+				clk         => clk,
+				rst         => rst,
+				base_period => base_period,
+				pattern_sel => pattern_sel,
+				pattern_gen => pattern_gen
 			);
 		
 		-- Finite state machine for pattern switching
 		FSM : led_pattern_fsm
 			generic map (
-				system_clock_period => system_clock_period
+				system_clock_period : time := 20 ns
 			);
 			port map (
 				clk               => clk,
 				rst               => rst,
-				push_button_pulse => push_button_pulse
+				push_button_pulse => push_button_pulse,
+				switches          => switches,
+				pattern_gen       => pattern_gen,
+				led_pattern       => led_pattern,
+				pattern_sel       => pattern_sel
 			);
 		
 		-- Multiplexer to assign control to either hps (=1) or fsm (=0)
