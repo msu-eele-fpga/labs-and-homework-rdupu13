@@ -1,9 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.assert_pkg.all;
-use work.print_pkg.all;
-use work.tb_pkg.all;
 
 entity debouncer is
 	generic(
@@ -42,21 +39,33 @@ architecture debouncer_arch of debouncer is
 					-- Next state logic
 					when S_WAIT_FOR_PRESS =>
 						count <= 0;
-						curr_state <= S_PRESSED_BOUNCING  when input = '1' else
-									  S_WAIT_FOR_PRESS;
+						if input = '1' then
+							curr_state <= S_PRESSED_BOUNCING;
+						else
+							curr_state <= S_WAIT_FOR_PRESS;
+						end if;
 					when S_PRESSED_BOUNCING =>
 						count <= count + 1;
-						curr_state <= S_WAIT_FOR_RELEASE  when count >= (debounce_time / clk_period) - 2 else
-									  S_PRESSED_BOUNCING;
+						if count >= (debounce_time / clk_period) - 2 then
+							curr_state <= S_WAIT_FOR_RELEASE;
+						else
+							curr_state <= S_PRESSED_BOUNCING;
+						end if;
 					when S_WAIT_FOR_RELEASE =>
 						count <= 0;
-						curr_state <= S_RELEASED_BOUNCING when input = '0' else
-									  S_WAIT_FOR_RELEASE;
+						if input = '0' then
+							curr_state <= S_RELEASED_BOUNCING;
+						else
+							curr_state <= S_WAIT_FOR_RELEASE;
+						end if;
 					when S_RELEASED_BOUNCING =>
 						count <= count + 1;
-						curr_state <= S_WAIT_FOR_PRESS    when count >= (debounce_time / clk_period) - 2 else
-									  S_RELEASED_BOUNCING;
-									  
+						if count >= (debounce_time / clk_period) - 2 then
+							curr_state <= S_WAIT_FOR_PRESS;
+						else
+							curr_state <= S_RELEASED_BOUNCING;
+						end if;
+					
 				end case;
 			end if;
 		end process;

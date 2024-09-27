@@ -1,9 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.assert_pkg.all;
-use work.print_pkg.all;
-use work.tb_pkg.all;
 
 entity led_pattern_generator is
 	generic (
@@ -97,12 +94,11 @@ architecture led_pattern_generator_arch of led_pattern_generator is
 				
 				if rising_edge(clock_vector(2)) then            -- 1/2 * base_period
 					pattern_0 <= rotate_right(pattern_0, 1);
+					bit_seven <= not bit_seven; -- Must be toggled twice as fast
 				end if;
 				
 				if rising_edge(clock_vector(3)) then            -- 1 * base_period
-					bit_seven <= '1';
-				elsif falling_edge(clock_vector(3)) then
-					bit_seven <= '0';
+					
 				end if;
 				
 				if rising_edge(clock_vector(4)) then            -- 2 * base_period
@@ -114,7 +110,7 @@ architecture led_pattern_generator_arch of led_pattern_generator is
 		end process;
 		
 		-- Output pattern corresponding to pattern_sel
-		with pattern_sel select pattern_gen <=
+		with pattern_sel_sig select pattern_gen <=
 			bit_seven & std_ulogic_vector(pattern_0) when "000",
 			bit_seven & std_ulogic_vector(pattern_1) when "001",
 			bit_seven & std_ulogic_vector(pattern_2) when "010",

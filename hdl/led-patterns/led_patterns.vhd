@@ -1,9 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.assert_pkg.all;
-use work.print_pkg.all;
-use work.tb_pkg.all;
 
 entity led_patterns is
 	generic (
@@ -22,6 +19,8 @@ entity led_patterns is
 end entity;
 
 architecture led_patterns_arch of led_patterns is
+	
+	signal push_button_n : std_ulogic;
 	
 	signal push_button_pulse : std_ulogic;
 	signal pattern_gen       : std_ulogic_vector(7 downto 0);
@@ -71,6 +70,9 @@ architecture led_patterns_arch of led_patterns is
 	
 	begin
 		
+		-- Invert push button
+		push_button_n <= push_button;
+		
 		-- Asynchronous conditioner
 		BOTTON_PULSE : async_conditioner
 			generic map (
@@ -80,7 +82,7 @@ architecture led_patterns_arch of led_patterns is
 			port map (
 				clk   => clk,
 				rst   => rst,
-				async => push_button,
+				async => push_button_n,
 				sync  => push_button_pulse
 			);
 		

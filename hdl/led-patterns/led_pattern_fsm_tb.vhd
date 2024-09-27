@@ -7,7 +7,7 @@ end entity;
 
 architecture led_pattern_fsm_tb_arch of led_pattern_fsm_tb is
 	
-	constant CLK_PERIOD : time := 20 ns;
+	constant CLK_PERIOD : time := 20 ms; -- Slower clock speed for better waveform view
 	
 	signal clk_tb               : std_ulogic;
 	signal rst_tb               : std_ulogic;
@@ -55,12 +55,76 @@ architecture led_pattern_fsm_tb_arch of led_pattern_fsm_tb is
 			clk_tb <= '0'; wait for CLK_PERIOD / 2;
 		end process;
 		
+		-- Test pattern generation
+		TEST_PATTERN_GEN : process is
+		begin
+			case (pattern_sel_tb) is
+				when "000" =>
+					pattern_gen_tb <= "00001000"; wait for CLK_PERIOD * 3;
+					pattern_gen_tb <= "10000100"; wait for CLK_PERIOD * 3;
+				when "001" =>
+					pattern_gen_tb <= "00001100"; wait for CLK_PERIOD * 3;
+					pattern_gen_tb <= "10011000"; wait for CLK_PERIOD * 3;
+				when "010" =>
+					pattern_gen_tb <= "00000000"; wait for CLK_PERIOD * 3;
+					pattern_gen_tb <= "10000001"; wait for CLK_PERIOD * 3;
+					pattern_gen_tb <= "00000010"; wait for CLK_PERIOD * 3;
+					pattern_gen_tb <= "10000011"; wait for CLK_PERIOD * 3;
+				when "011" =>
+					pattern_gen_tb <= "00000000"; wait for CLK_PERIOD * 3;
+					pattern_gen_tb <= "11111111"; wait for CLK_PERIOD * 3;
+					pattern_gen_tb <= "01111110"; wait for CLK_PERIOD * 3;
+					pattern_gen_tb <= "11111101"; wait for CLK_PERIOD * 3;
+				when "100" =>
+					pattern_gen_tb <= "00001000"; wait for CLK_PERIOD * 3;
+					pattern_gen_tb <= "11110111"; wait for CLK_PERIOD * 3;
+				when others =>
+					pattern_gen_tb <= "00000000"; wait for CLK_PERIOD * 3;
+			end case;
+		end process;
+		
 		-- DUT Stimulus
 		STIMULUS : process is
 		begin
 			
+			-- Reset
+			push_button_pulse_tb <= '0';
+			switches_tb <= "0000";
+			rst_tb <= '0'; wait for CLK_PERIOD;
+			rst_tb <= '1'; wait for CLK_PERIOD * 3;
+			rst_tb <= '0';
 			
+			wait for CLK_PERIOD * 25;
 			
+			-- Switch set and button press
+			switches_tb <= "0011"; wait for CLK_PERIOD * 5;
+			push_button_pulse_tb <= '1'; wait for CLK_PERIOD;
+			push_button_pulse_tb <= '0';
+			
+			wait for 1.7 sec;
+			
+			-- Switch set and button press
+			switches_tb <= "0001"; wait for CLK_PERIOD * 5;
+			push_button_pulse_tb <= '1'; wait for CLK_PERIOD;
+			push_button_pulse_tb <= '0';
+			
+			wait for 2.3 sec;
+			
+			-- Switch set and button press
+			switches_tb <= "0100"; wait for CLK_PERIOD * 5;
+			push_button_pulse_tb <= '1'; wait for CLK_PERIOD;
+			push_button_pulse_tb <= '0';
+			
+			wait for 1.9 sec;
+			
+			-- Switch set and button press
+			switches_tb <= "0010"; wait for CLK_PERIOD * 5;
+			push_button_pulse_tb <= '1'; wait for CLK_PERIOD;
+			push_button_pulse_tb <= '0';
+			
+			wait for 1.5 sec;
+			
+			std.env.finish;
 			
 		end process;
 		

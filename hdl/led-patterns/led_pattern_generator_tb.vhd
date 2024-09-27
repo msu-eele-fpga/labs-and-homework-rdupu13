@@ -84,6 +84,7 @@ architecture led_pattern_generator_tb_arch of led_pattern_generator_tb is
 				assert pattern_gen_tb = "0000000"
 					report "Error on reset: pattern_gen should be 0000000."
 					severity warning;
+				prev_pattern <= "0000000";
 			else
 				-- Test patterns
 				case (pattern_sel_tb) is
