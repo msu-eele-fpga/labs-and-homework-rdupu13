@@ -70,9 +70,6 @@ architecture led_patterns_arch of led_patterns is
 	
 	begin
 		
-		-- Invert push button
-		push_button_n <= push_button;
-		
 		-- Asynchronous conditioner
 		BOTTON_PULSE : async_conditioner
 			generic map (
@@ -82,7 +79,7 @@ architecture led_patterns_arch of led_patterns is
 			port map (
 				clk   => clk,
 				rst   => rst,
-				async => push_button_n,
+				async => push_button,
 				sync  => push_button_pulse
 			);
 		

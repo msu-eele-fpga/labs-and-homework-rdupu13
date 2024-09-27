@@ -13,7 +13,7 @@ architecture led_pattern_generator_tb_arch of led_pattern_generator_tb is
 	signal clk_tb              : std_ulogic;
 	signal rst_tb              : std_ulogic;
 	signal pattern_sel_tb      : std_ulogic_vector(2 downto 0);
-	signal full_pattern_gen_tb : std_ulogic_vector(6 downto 0);
+	signal full_pattern_tb     : 
 	signal pattern_gen_tb      : std_ulogic_vector(6 downto 0);
 	
 	signal prev_pattern : std_ulogic_vector(6 downto 0);
@@ -42,7 +42,7 @@ architecture led_pattern_generator_tb_arch of led_pattern_generator_tb is
 				rst         => rst_tb,
 				base_period => BASE_PERIOD_TB,
 				pattern_sel => pattern_sel_tb,
-				pattern_gen => full_pattern_gen_tb
+				pattern_gen => pattern_gen_tb(6 downto 0)
 			);
 			
 		pattern_gen_tb <= full_pattern_gen_tb(6 downto 0);

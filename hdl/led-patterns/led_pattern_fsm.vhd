@@ -23,10 +23,11 @@ architecture led_pattern_fsm_arch of led_pattern_fsm is
 				   S_SHOW_SWITCHES);
 	
 	signal curr_state : STATE;
+	signal prev_state : STATE;
 	
 	signal count : natural := 0;
 	
-	constant ONE_SECOND_COUNT  : natural := 1000000000 ns / system_clock_period;
+	constant ONE_SECOND_COUNT : natural := 1000000000 ns / system_clock_period;
 	
 	begin
 	
@@ -42,7 +43,7 @@ architecture led_pattern_fsm_arch of led_pattern_fsm is
 			-- curr_state = curr_state otherwise >= 5
 		
 		-- Next state logic
-		NEXT_STATE_LOGIC : process (clk, rst, curr_state, count, push_button_pulse) is
+		NEXT_STATE_LOGIC : process (clk, rst, curr_state, count, push_button_pulse, prev_state) is
 		begin
 			if rst = '1' then
 				curr_state <= S_PATTERN_0;
@@ -59,7 +60,7 @@ architecture led_pattern_fsm_arch of led_pattern_fsm is
 								when "0010" => curr_state <= S_PATTERN_2;
 								when "0011" => curr_state <= S_PATTERN_3;
 								when "0100" => curr_state <= S_PATTERN_4;
-								when others => curr_state <= S_PATTERN_0; -- Must be changed later!!
+								when others => curr_state <= prev_state; -- Must be changed later!!
 							end case;
 						else
 							curr_state <= S_SHOW_SWITCHES;
@@ -67,6 +68,7 @@ architecture led_pattern_fsm_arch of led_pattern_fsm is
 						
 					when others =>
 						count <= 0;
+						prev_state <= curr_state;
 						if push_button_pulse = '1' then
 							curr_state <= S_SHOW_SWITCHES;
 						else

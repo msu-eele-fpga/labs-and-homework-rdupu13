@@ -49,7 +49,7 @@ architecture led_pattern_generator_arch of led_pattern_generator is
 			elsif rising_edge(clk) then
 				
 				-- Update base_period_count if it changed
-				base_period_count <= (ONE_SECOND_COUNT * to_integer(base_period)) / 4;
+				base_period_count <= (ONE_SECOND_COUNT * to_integer(base_period)) / 16;
 				
 				-- LSB of clock_vector blinks at 1/8 of base period
 				if count >= base_period_count / 8 then
