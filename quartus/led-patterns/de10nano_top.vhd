@@ -108,7 +108,7 @@ architecture de10nano_arch of de10nano_top is
 				push_button     => not push_button_n(0),
 				switches        => sw,
 				hps_led_control => false,
-				base_period     => "00000010",
+				base_period     => "00000011",
 				led_reg         => "00000000",
 				led             => led
 			);
