@@ -48,6 +48,7 @@ architecture led_pattern_fsm_arch of led_pattern_fsm is
 			if rst = '1' then
 				curr_state <= S_PATTERN_0;
 				count <= 0;
+				
 			elsif rising_edge(clk) then
 				case (curr_state) is
 				
@@ -60,7 +61,7 @@ architecture led_pattern_fsm_arch of led_pattern_fsm is
 								when "0010" => curr_state <= S_PATTERN_2;
 								when "0011" => curr_state <= S_PATTERN_3;
 								when "0100" => curr_state <= S_PATTERN_4;
-								when others => curr_state <= prev_state; -- Must be changed later!!
+								when others => curr_state <= prev_state;
 							end case;
 						else
 							curr_state <= S_SHOW_SWITCHES;

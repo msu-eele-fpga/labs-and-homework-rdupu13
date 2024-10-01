@@ -1,21 +1,10 @@
 <session jtag_chain="DE-SoC [USB-1]" jtag_device="@2: 5CSEBA6(.|ES)/5CSEMA6/.. (0x02D020DD)" sof_file="">
   <display_tree gui_logging_enabled="0">
-    <display_branch instance="auto_signaltap_0" log="USE_GLOBAL_TEMP" signal_set="USE_GLOBAL_TEMP" trigger="USE_GLOBAL_TEMP"/>
+    <display_branch instance="auto_signaltap_0" signal_set="USE_GLOBAL_TEMP" trigger="USE_GLOBAL_TEMP"/>
   </display_tree>
   <instance enabled="true" entity_name="sld_signaltap" is_auto_node="yes" is_expanded="true" name="auto_signaltap_0" source_file="sld_signaltap.vhd">
     <node_ip_info instance_id="0" mfg_id="110" node_id="0" version="6"/>
-    <position_info>
-      <single attribute="active tab" value="1"/>
-      <single attribute="data horizontal scroll position" value="0"/>
-      <single attribute="data vertical scroll position" value="0"/>
-      <single attribute="setup horizontal scroll position" value="0"/>
-      <single attribute="setup vertical scroll position" value="0"/>
-      <single attribute="zoom level denominator" value="1"/>
-      <single attribute="zoom level numerator" value="1"/>
-      <single attribute="zoom offset denominator" value="1"/>
-      <single attribute="zoom offset numerator" value="130944"/>
-    </position_info>
-    <signal_set name="signal_set: 2024/09/30 17:00:52  #0">
+    <signal_set is_expanded="false" name="signal_set: 2024/09/30 17:00:52  #0">
       <clock name="auto_stp_external_clock_0" polarity="posedge" tap_mode="classic"/>
       <config pipeline_level="4" ram_type="AUTO" reserved_data_nodes="0" reserved_storage_qualifier_nodes="0" reserved_trigger_nodes="0" sample_depth="128" trigger_in_enable="no" trigger_out_enable="no"/>
       <top_entity/>
@@ -367,13 +356,11 @@
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger CRC="CC8839A3" attribute_mem_mode="false" gap_record="true" is_expanded="true" name="trigger: 2024/09/30 17:00:52  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="1" storage_mode="start_stop" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger CRC="CC8839A3" attribute_mem_mode="false" gap_record="true" is_expanded="false" name="trigger: 2024/09/30 17:00:52  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="1" storage_mode="start_stop" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
-          <level enabled="yes" name="condition1" type="basic">
-            <power_up enabled="yes">
-            </power_up>
-            <op_node/>
+          <level enabled="yes" name="condition1" type="basic"><power_up enabled="yes">
+            </power_up><op_node/>
           </level>
         </events>
         <storage_qualifier_events>
@@ -397,14 +384,25 @@
           </storage_qualifier_level>
         </storage_qualifier_events>
         <log>
-          <data name="log: 2024/09/30 17:00:52  #2" power_up_mode="false" sample_depth="0" trigger_position="-1"></data>
-          <extradata></extradata>
+          <data name="log: 2024/09/30 17:00:52  #2" power_up_mode="false" sample_depth="0" trigger_position="-1"/>
+          <extradata/>
         </log>
       </trigger>
     </signal_set>
-    <signal_set global_temp="1" name="signal_set: 2024/09/30 17:00:52  #0">
-      <clock name="auto_stp_external_clock_0" polarity="posedge" tap_mode="classic"/>
-      <config pipeline_level="4" ram_type="AUTO" reserved_data_nodes="0" reserved_storage_qualifier_nodes="0" reserved_trigger_nodes="0" sample_depth="128" trigger_in_enable="no" trigger_out_enable="no"/>
+    <position_info>
+      <single attribute="active tab" value="1"/>
+      <single attribute="data horizontal scroll position" value="0"/>
+      <single attribute="data vertical scroll position" value="0"/>
+      <single attribute="setup horizontal scroll position" value="0"/>
+      <single attribute="setup vertical scroll position" value="0"/>
+      <single attribute="zoom level denominator" value="1"/>
+      <single attribute="zoom level numerator" value="2048"/>
+      <single attribute="zoom offset denominator" value="1"/>
+      <single attribute="zoom offset numerator" value="0"/>
+    </position_info>
+    <signal_set global_temp="1" name="signal_set: 2024/10/01 13:11:31  #0">
+      <clock name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[0]" polarity="posedge" tap_mode="classic"/>
+      <config is_hps_trigger_out_selected="false" pipeline_level="5" ram_type="AUTO" reserved_data_nodes="0" reserved_storage_qualifier_nodes="0" reserved_trigger_nodes="0" sample_depth="128" trigger_in_enable="yes" trigger_in_node="led_patterns:DESIGN|push_button" trigger_in_tap_mode="classic" trigger_out_enable="no"/>
       <top_entity/>
       <signal_vec>
         <trigger_input_vec>
@@ -453,8 +451,6 @@
           <wire name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_2" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_3" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_4" tap_mode="classic"/>
-          <wire name="led_patterns:DESIGN|led_pattern_fsm:FSM|push_button_pulse" tap_mode="classic"/>
-          <wire name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[0]" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[1]" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[2]" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[3]" tap_mode="classic"/>
@@ -507,8 +503,6 @@
           <wire name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_2" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_3" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_4" tap_mode="classic"/>
-          <wire name="led_patterns:DESIGN|led_pattern_fsm:FSM|push_button_pulse" tap_mode="classic"/>
-          <wire name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[0]" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[1]" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[2]" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[3]" tap_mode="classic"/>
@@ -561,8 +555,6 @@
           <wire name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_2" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_3" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_4" tap_mode="classic"/>
-          <wire name="led_patterns:DESIGN|led_pattern_fsm:FSM|push_button_pulse" tap_mode="classic"/>
-          <wire name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[0]" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[1]" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[2]" tap_mode="classic"/>
           <wire name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[3]" tap_mode="classic"/>
@@ -573,14 +565,13 @@
       <presentation>
         <unified_setup_data_view>
           <node data_index="0" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|clk" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="0" tap_mode="classic" trigger_index="0" type="unknown"/>
-          <node data_index="51" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|rst" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="51" tap_mode="classic" trigger_index="51" type="unknown"/>
+          <node data_index="49" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|rst" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="49" tap_mode="classic" trigger_index="49" type="unknown"/>
           <node data_index="40" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_0" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="40" tap_mode="classic" trigger_index="40" type="unknown"/>
           <node data_index="41" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_1" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="41" tap_mode="classic" trigger_index="41" type="unknown"/>
           <node data_index="42" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_2" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="42" tap_mode="classic" trigger_index="42" type="unknown"/>
           <node data_index="43" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_3" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="43" tap_mode="classic" trigger_index="43" type="unknown"/>
           <node data_index="44" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_4" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="44" tap_mode="classic" trigger_index="44" type="unknown"/>
-          <node data_index="45" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|push_button_pulse" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="45" tap_mode="classic" trigger_index="45" type="unknown"/>
-          <node is_selected="false" level-0="alt_or" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[30..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="register">
+          <node is_selected="false" level-0="alt_or" level-1="alt_or" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[30..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" state="collapse" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="register">
             <node data_index="32" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[30]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="32" tap_mode="classic" trigger_index="32" type="unknown"/>
             <node data_index="30" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[29]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="30" tap_mode="classic" trigger_index="30" type="unknown"/>
             <node data_index="29" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[28]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="29" tap_mode="classic" trigger_index="29" type="unknown"/>
@@ -613,7 +604,7 @@
             <node data_index="20" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[1]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="20" tap_mode="classic" trigger_index="20" type="unknown"/>
             <node data_index="9" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[0]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="9" tap_mode="classic" trigger_index="9" type="unknown"/>
           </node>
-          <node is_selected="false" level-0="alt_or" name="led_patterns:DESIGN|led[7..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="combinatorial">
+          <node is_selected="false" level-0="alt_or" level-1="alt_or" name="led_patterns:DESIGN|led[7..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" state="expand" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="combinatorial">
             <node data_index="8" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[7]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="8" tap_mode="classic" trigger_index="8" type="unknown"/>
             <node data_index="7" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[6]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="7" tap_mode="classic" trigger_index="7" type="unknown"/>
             <node data_index="6" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[5]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="6" tap_mode="classic" trigger_index="6" type="unknown"/>
@@ -623,24 +614,22 @@
             <node data_index="2" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[1]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="2" tap_mode="classic" trigger_index="2" type="unknown"/>
             <node data_index="1" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[0]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="1" tap_mode="classic" trigger_index="1" type="unknown"/>
           </node>
-          <node is_selected="false" level-0="alt_or" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[4..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="register">
-            <node data_index="50" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[4]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="50" tap_mode="classic" trigger_index="50" type="unknown"/>
-            <node data_index="49" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[3]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="49" tap_mode="classic" trigger_index="49" type="unknown"/>
-            <node data_index="48" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[2]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="48" tap_mode="classic" trigger_index="48" type="unknown"/>
-            <node data_index="47" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[1]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="47" tap_mode="classic" trigger_index="47" type="unknown"/>
-            <node data_index="46" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[0]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="46" tap_mode="classic" trigger_index="46" type="unknown"/>
+          <node is_selected="false" level-0="alt_or" level-1="alt_or" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[4..0]" order="msb_to_lsb" state="expand" type="register">
+            <node data_index="48" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[4]" storage_index="48" tap_mode="classic" trigger_index="48" type="unknown"/>
+            <node data_index="47" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[3]" storage_index="47" tap_mode="classic" trigger_index="47" type="unknown"/>
+            <node data_index="46" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[2]" storage_index="46" tap_mode="classic" trigger_index="46" type="unknown"/>
+            <node data_index="45" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[1]" storage_index="45" tap_mode="classic" trigger_index="45" type="unknown"/>
           </node>
         </unified_setup_data_view>
         <data_view>
           <net data_index="0" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|clk" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="0" tap_mode="classic" trigger_index="0" type="unknown"/>
-          <net data_index="51" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|rst" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="51" tap_mode="classic" trigger_index="51" type="unknown"/>
+          <net data_index="49" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|rst" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="49" tap_mode="classic" trigger_index="49" type="unknown"/>
           <net data_index="40" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_0" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="40" tap_mode="classic" trigger_index="40" type="unknown"/>
           <net data_index="41" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_1" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="41" tap_mode="classic" trigger_index="41" type="unknown"/>
           <net data_index="42" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_2" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="42" tap_mode="classic" trigger_index="42" type="unknown"/>
           <net data_index="43" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_3" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="43" tap_mode="classic" trigger_index="43" type="unknown"/>
           <net data_index="44" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_4" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="44" tap_mode="classic" trigger_index="44" type="unknown"/>
-          <net data_index="45" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|push_button_pulse" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="45" tap_mode="classic" trigger_index="45" type="unknown"/>
-          <bus is_selected="false" level-0="alt_or" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[30..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="register">
+          <bus is_selected="false" level-0="alt_or" level-1="alt_or" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[30..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" state="collapse" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="register">
             <net data_index="32" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[30]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="32" tap_mode="classic" trigger_index="32" type="unknown"/>
             <net data_index="30" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[29]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="30" tap_mode="classic" trigger_index="30" type="unknown"/>
             <net data_index="29" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[28]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="29" tap_mode="classic" trigger_index="29" type="unknown"/>
@@ -673,7 +662,7 @@
             <net data_index="20" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[1]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="20" tap_mode="classic" trigger_index="20" type="unknown"/>
             <net data_index="9" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[0]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="9" tap_mode="classic" trigger_index="9" type="unknown"/>
           </bus>
-          <bus is_selected="false" level-0="alt_or" name="led_patterns:DESIGN|led[7..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="combinatorial">
+          <bus is_selected="false" level-0="alt_or" level-1="alt_or" name="led_patterns:DESIGN|led[7..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" state="expand" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="combinatorial">
             <net data_index="8" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[7]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="8" tap_mode="classic" trigger_index="8" type="unknown"/>
             <net data_index="7" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[6]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="7" tap_mode="classic" trigger_index="7" type="unknown"/>
             <net data_index="6" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[5]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="6" tap_mode="classic" trigger_index="6" type="unknown"/>
@@ -683,24 +672,22 @@
             <net data_index="2" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[1]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="2" tap_mode="classic" trigger_index="2" type="unknown"/>
             <net data_index="1" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[0]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="1" tap_mode="classic" trigger_index="1" type="unknown"/>
           </bus>
-          <bus is_selected="false" level-0="alt_or" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[4..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="register">
-            <net data_index="50" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[4]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="50" tap_mode="classic" trigger_index="50" type="unknown"/>
-            <net data_index="49" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[3]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="49" tap_mode="classic" trigger_index="49" type="unknown"/>
-            <net data_index="48" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[2]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="48" tap_mode="classic" trigger_index="48" type="unknown"/>
-            <net data_index="47" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[1]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="47" tap_mode="classic" trigger_index="47" type="unknown"/>
-            <net data_index="46" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[0]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="46" tap_mode="classic" trigger_index="46" type="unknown"/>
+          <bus is_selected="false" level-0="alt_or" level-1="alt_or" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[4..0]" order="msb_to_lsb" state="expand" type="register">
+            <net data_index="48" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[4]" storage_index="48" tap_mode="classic" trigger_index="48" type="unknown"/>
+            <net data_index="47" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[3]" storage_index="47" tap_mode="classic" trigger_index="47" type="unknown"/>
+            <net data_index="46" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[2]" storage_index="46" tap_mode="classic" trigger_index="46" type="unknown"/>
+            <net data_index="45" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[1]" storage_index="45" tap_mode="classic" trigger_index="45" type="unknown"/>
           </bus>
         </data_view>
         <setup_view>
           <net data_index="0" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|clk" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="0" tap_mode="classic" trigger_index="0" type="unknown"/>
-          <net data_index="51" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|rst" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="51" tap_mode="classic" trigger_index="51" type="unknown"/>
+          <net data_index="49" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|rst" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="49" tap_mode="classic" trigger_index="49" type="unknown"/>
           <net data_index="40" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_0" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="40" tap_mode="classic" trigger_index="40" type="unknown"/>
           <net data_index="41" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_1" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="41" tap_mode="classic" trigger_index="41" type="unknown"/>
           <net data_index="42" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_2" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="42" tap_mode="classic" trigger_index="42" type="unknown"/>
           <net data_index="43" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_3" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="43" tap_mode="classic" trigger_index="43" type="unknown"/>
           <net data_index="44" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|curr_state.S_PATTERN_4" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="44" tap_mode="classic" trigger_index="44" type="unknown"/>
-          <net data_index="45" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|push_button_pulse" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="45" tap_mode="classic" trigger_index="45" type="unknown"/>
-          <bus is_selected="false" level-0="alt_or" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[30..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="register">
+          <bus is_selected="false" level-0="alt_or" level-1="alt_or" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[30..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" state="collapse" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="register">
             <net data_index="32" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[30]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="32" tap_mode="classic" trigger_index="32" type="unknown"/>
             <net data_index="30" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[29]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="30" tap_mode="classic" trigger_index="30" type="unknown"/>
             <net data_index="29" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[28]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="29" tap_mode="classic" trigger_index="29" type="unknown"/>
@@ -733,7 +720,7 @@
             <net data_index="20" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[1]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="20" tap_mode="classic" trigger_index="20" type="unknown"/>
             <net data_index="9" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_fsm:FSM|count[0]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="9" tap_mode="classic" trigger_index="9" type="unknown"/>
           </bus>
-          <bus is_selected="false" level-0="alt_or" name="led_patterns:DESIGN|led[7..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="combinatorial">
+          <bus is_selected="false" level-0="alt_or" level-1="alt_or" name="led_patterns:DESIGN|led[7..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" state="expand" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="combinatorial">
             <net data_index="8" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[7]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="8" tap_mode="classic" trigger_index="8" type="unknown"/>
             <net data_index="7" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[6]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="7" tap_mode="classic" trigger_index="7" type="unknown"/>
             <net data_index="6" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[5]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="6" tap_mode="classic" trigger_index="6" type="unknown"/>
@@ -743,29 +730,42 @@
             <net data_index="2" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[1]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="2" tap_mode="classic" trigger_index="2" type="unknown"/>
             <net data_index="1" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led[0]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="1" tap_mode="classic" trigger_index="1" type="unknown"/>
           </bus>
-          <bus is_selected="false" level-0="alt_or" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[4..0]" order="msb_to_lsb" pwr_level-0="alt_or" pwr_storage-1="alt_or" pwr_storage-2="alt_or" storage-0="alt_or" storage-1="alt_or" storage-2="alt_or" type="register">
-            <net data_index="50" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[4]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="50" tap_mode="classic" trigger_index="50" type="unknown"/>
-            <net data_index="49" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[3]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="49" tap_mode="classic" trigger_index="49" type="unknown"/>
-            <net data_index="48" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[2]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="48" tap_mode="classic" trigger_index="48" type="unknown"/>
-            <net data_index="47" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[1]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="47" tap_mode="classic" trigger_index="47" type="unknown"/>
-            <net data_index="46" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[0]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="46" tap_mode="classic" trigger_index="46" type="unknown"/>
+          <bus is_selected="false" level-0="alt_or" level-1="alt_or" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[4..0]" order="msb_to_lsb" state="expand" type="register">
+            <net data_index="48" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[4]" storage_index="48" tap_mode="classic" trigger_index="48" type="unknown"/>
+            <net data_index="47" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[3]" storage_index="47" tap_mode="classic" trigger_index="47" type="unknown"/>
+            <net data_index="46" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[2]" storage_index="46" tap_mode="classic" trigger_index="46" type="unknown"/>
+            <net data_index="45" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" name="led_patterns:DESIGN|led_pattern_generator:PATTERN_GENERATION|clock_vector[1]" storage_index="45" tap_mode="classic" trigger_index="45" type="unknown"/>
           </bus>
         </setup_view>
-        <trigger_in_editor/>
+        <trigger_in_editor bit_condition="rising edge" is_enabled="true" is_hps_event_selected="false" is_hps_trigger_in_selected="false" is_hps_trigger_out_selected="false" is_node_selected="true" node_name="led_patterns:DESIGN|push_button"/>
         <trigger_out_editor/>
       </presentation>
-      <trigger attribute_mem_mode="false" gap_record="true" global_temp="1" name="trigger: 2024/09/30 17:02:38  #0" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="1" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
-        <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
-        <events use_custom_flow_control="no">
+      <trigger attribute_mem_mode="false" gap_record="true" global_temp="1" name="trigger: 2024/10/01 13:24:19  #0" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="1" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_in="rising edge" trigger_type="circular">
+        <power_up_trigger position="pre" storage_qualifier_disabled="no" trigger_in="high"/>
+        <events use_custom_flow_control="yes">
           <level enabled="yes" name="condition1" type="basic">
             <power_up enabled="yes">
             </power_up>
             <op_node/>
           </level>
+          <level enabled="yes" name="condition2" type="basic">
+            <power_up enabled="yes">
+            </power_up>
+            <op_node/>
+          </level>
+          <custom_flow_control>
+            <flow_expression><![CDATA[state ST1:
+trigger;]]>
+            </flow_expression>
+            <runtime_configurable comparison_operator="yes" counter_action="no" flag_action="no" logical_operator="yes" numerical_value="yes" state_transition="yes"/>
+            <power_up_flow_expression><![CDATA[state ST1:
+trigger;]]>
+            </power_up_flow_expression>
+          </custom_flow_control>
         </events>
         <storage_qualifier_events>
-          <transitional>1111111111111111111111111111111111111111111111111111
-            <pwr_up_transitional>1111111111111111111111111111111111111111111111111111</pwr_up_transitional>
+          <transitional>11111111111111111111111111111111111111111111111111
+            <pwr_up_transitional>11111111111111111111111111111111111111111111111111</pwr_up_transitional>
           </transitional>
           <storage_qualifier_level type="basic">
             <power_up>
@@ -783,14 +783,11 @@
             <op_node/>
           </storage_qualifier_level>
         </storage_qualifier_events>
-        <log>
-          <data global_temp="1" name="log: 2024/09/30 17:02:38  #1"/>
-          <extradata/>
-        </log>
       </trigger>
     </signal_set>
   </instance>
   <mnemonics/>
+  <static_plugin_mnemonics/>
   <global_info>
     <single attribute="active instance" value="0"/>
     <single attribute="config widget visible" value="1"/>
@@ -800,7 +797,7 @@
     <single attribute="jtag widget visible" value="1"/>
     <single attribute="lock mode" value="0"/>
     <multi attribute="frame size" size="2" value="1920,1009"/>
-    <multi attribute="jtag widget size" size="2" value="1044,204"/>
+    <multi attribute="jtag widget size" size="2" value="1044,135"/>
+    <single attribute="hierarchy widget height" value="96"/>
   </global_info>
-  <static_plugin_mnemonics/>
 </session>
