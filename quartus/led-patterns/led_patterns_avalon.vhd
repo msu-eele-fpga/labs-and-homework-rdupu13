@@ -7,11 +7,11 @@ entity led_patterns_avalon is
 		clk           : in std_ulogic;
 		rst           : in std_ulogic;
 		-- Avalon memory-mapped slave interface
-		avs_read      : in  std_logic;
-		avs_write     : in  std_logic;
-		avs_address   : in  std_logic_vector(1 downto 0);
-		avs_readdata  : out std_logic_vector(31 downto 0);
-		avs_writedata : in  std_logic_vector(31 downto 0);
+		avs_read      : in  std_ulogic;
+		avs_write     : in  std_ulogic;
+		avs_address   : in  std_ulogic_vector(1 downto 0);
+		avs_readdata  : out std_ulogic_vector(31 downto 0);
+		avs_writedata : in  std_ulogic_vector(31 downto 0);
 		-- External I/O; export to top-level
 		push_button   : in  std_ulogic;
 		switches      : in  std_ulogic_vector(3 downto 0);
@@ -52,39 +52,39 @@ architecture led_patterns_avalon_arch of led_patterns_avalon is
 				rst             => rst,
 				push_button     => push_button,
 				switches        => switches,
-				hps_led_control => hps_led_control(0),
-				base_period     => base_period(7 downto 0),
+				hps_led_control => (hps_led_control(0) = '1'),
+				base_period     => unsigned(base_period(7 downto 0)),
 				led_reg         => led_reg(7 downto 0),
 				led             => led
 			);
 		
-		AVALON_REGISTER_READ : process(clk) is
+		AVALON_REGISTER_READ : process(clk, avs_read) is
 		begin
-			if rising_edge(clk) and avs_s1_read = '1' then
-				case avs_s1_address is
+			if rising_edge(clk) and avs_read = '1' then
+				case avs_address is
 					
-					when "00"   => avs_s1_readdata <= hps_led_control;
-					when "01"   => avs_s1_readdata <= led_reg;
-					when "10"   => avs_s1_readdata <= base_period;
-					when others => avs_s1_readdata <= (others => '0');
+					when "00"   => avs_readdata <= hps_led_control;
+					when "01"   => avs_readdata <= led_reg;
+					when "10"   => avs_readdata <= base_period;
+					when others => avs_readdata <= (others => '0');
 					
 				end case;
 			end if;
 		end process;
 		
-		AVALON_REGISTER_WRITE : process (clk, rst) is
+		AVALON_REGISTER_WRITE : process (clk, rst, avs_write) is
 		begin
 			if rst = '1' then
 				hps_led_control <= "00000000000000000000000000000000"; -- HPS control off
 				led_reg         <= "00000000000000000000000000000000"; -- LED reg 0x00
 				base_period     <= "00000000000000000000000000000010"; -- BP = 0.125 s
 				
-			elsif rising_edge(clk) and avs_s1_write = '1' then
-				case avs_s1_address is
+			elsif rising_edge(clk) and avs_write = '1' then
+				case avs_address is
 					
-					when "00"   => hps_led_control <= avs_s1_writedata;
-					when "01"   => led_reg         <= avs_s1_writedata;
-					when "10"   => base_period     <= avs_s1_writedata;
+					when "00"   => hps_led_control <= avs_writedata;
+					when "01"   => led_reg         <= avs_writedata;
+					when "10"   => base_period     <= avs_writedata;
 					when others => null; -- Ignore writes to unused registers
 					
 				end case;
