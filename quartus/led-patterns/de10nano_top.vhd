@@ -196,24 +196,6 @@ end entity;
 
 architecture de10nano_arch of de10nano_top is
 	
-	-- led_patterns ----------------------------------------------
-	component led_patterns is
-		generic (
-			system_clock_period : time := 20 ns
-		);
-		port (
-			clk             : in  std_ulogic;
-			rst             : in  std_ulogic;
-			push_button     : in  std_ulogic;
-			switches        : in  std_ulogic_vector(3 downto 0);
-			hps_led_control : in  boolean;
-			base_period     : in  unsigned(7 downto 0);
-			led_reg         : in  std_ulogic_vector(7 downto 0);
-			led             : out std_ulogic_vector(7 downto 0)
-		);
-	end component;
-	--------------------------------------------------------------
-	
 	-- soc_system ------------------------------------------------
 	component soc_system is
 		port (
@@ -288,21 +270,6 @@ architecture de10nano_arch of de10nano_top is
 	--------------------------------------------------------------
 	
 	begin
-		
-		DESIGN : led_patterns
-			generic map (
-				system_clock_period => 20 ns
-			)
-			port map (
-				clk             => fpga_clk1_50,
-				rst             => not push_button_n(1),
-				push_button     => not push_button_n(0),
-				switches        => sw,
-				hps_led_control => false,
-				base_period     => "00000011",
-				led_reg         => "00000000",
-				led             => led
-			);
 		
 		u0 : soc_system
 			port map (
