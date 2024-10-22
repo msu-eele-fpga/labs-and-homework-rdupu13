@@ -4,40 +4,40 @@ use ieee.numeric_std.all;
 
 entity led_patterns_avalon is
 	port (
-		clk           : in std_ulogic;
-		rst           : in std_ulogic;
+		clk           : in std_logic;
+		rst           : in std_logic;
 		-- Avalon memory-mapped slave interface
-		avs_read      : in  std_ulogic;
-		avs_write     : in  std_ulogic;
-		avs_address   : in  std_ulogic_vector(1 downto 0);
-		avs_readdata  : out std_ulogic_vector(31 downto 0);
-		avs_writedata : in  std_ulogic_vector(31 downto 0);
+		avs_read      : in  std_logic;
+		avs_write     : in  std_logic;
+		avs_address   : in  std_logic_vector(1 downto 0);
+		avs_readdata  : out std_logic_vector(31 downto 0);
+		avs_writedata : in  std_logic_vector(31 downto 0);
 		-- External I/O; export to top-level
-		push_button   : in  std_ulogic;
-		switches      : in  std_ulogic_vector(3 downto 0);
-		led           : out std_ulogic_vector(7 downto 0)
+		push_button   : in  std_logic;
+		switches      : in  std_logic_vector(3 downto 0);
+		led           : out std_logic_vector(7 downto 0)
 	);
 end entity;
 
 architecture led_patterns_avalon_arch of led_patterns_avalon is
 	
-	signal hps_led_control : std_ulogic_vector(31 downto 0);
-	signal led_reg         : std_ulogic_vector(31 downto 0);
-	signal base_period     : std_ulogic_vector(31 downto 0);
+	signal hps_led_control : std_logic_vector(31 downto 0);
+	signal led_reg         : std_logic_vector(31 downto 0);
+	signal base_period     : std_logic_vector(31 downto 0);
 	
 	component led_patterns is
 		generic (
 			system_clock_period : time := 20 ns
 		);
 		port (
-			clk             : in  std_ulogic;                    -- System clock
-			rst             : in  std_ulogic;                    -- System reset (active high)
-			push_button     : in  std_ulogic;                    -- Push button to change state (active high)
-			switches        : in  std_ulogic_vector(3 downto 0); -- Switches that determine next state
+			clk             : in  std_logic;                    -- System clock
+			rst             : in  std_logic;                    -- System reset (active high)
+			push_button     : in  std_logic;                    -- Push button to change state (active high)
+			switches        : in  std_logic_vector(3 downto 0); -- Switches that determine next state
 			hps_led_control : in  boolean;                       -- Software is in control when =1
 			base_period     : in  unsigned(7 downto 0);          -- LED blink rate
-			led_reg         : in  std_ulogic_vector(7 downto 0); -- LED register
-			led             : out std_ulogic_vector(7 downto 0)  -- LED pins on board
+			led_reg         : in  std_logic_vector(7 downto 0); -- LED register
+			led             : out std_logic_vector(7 downto 0)  -- LED pins on board
 		);
 	end component;
 	

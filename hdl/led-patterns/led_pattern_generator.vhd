@@ -7,19 +7,19 @@ entity led_pattern_generator is
 		system_clock_period : time := 20 ns
 	);
 	port (
-		clk         : in  std_ulogic;                    -- System Clock
-		rst         : in  std_ulogic;                    -- System reset (active high)
+		clk         : in  std_logic;                    -- System Clock
+		rst         : in  std_logic;                    -- System reset (active high)
 		base_period : in  unsigned(7 downto 0);          -- LED blink rate
-		pattern_sel : in  std_ulogic_vector(2 downto 0); -- Select which pattern to display
-		pattern_gen : out std_ulogic_vector(7 downto 0)  -- LED pattern
+		pattern_sel : in  std_logic_vector(2 downto 0); -- Select which pattern to display
+		pattern_gen : out std_logic_vector(7 downto 0)  -- LED pattern
 	);
 end entity;
 
 architecture led_pattern_generator_arch of led_pattern_generator is
 	
-	signal pattern_sel_sig : std_ulogic_vector(2 downto 0);
+	signal pattern_sel_sig : std_logic_vector(2 downto 0);
 	
-	signal bit_seven : std_ulogic;
+	signal bit_seven : std_logic;
 	signal pattern_0 : unsigned(6 downto 0);
 	signal pattern_1 : unsigned(6 downto 0);
 	signal pattern_2 : unsigned(6 downto 0);
@@ -111,11 +111,11 @@ architecture led_pattern_generator_arch of led_pattern_generator is
 		
 		-- Output pattern corresponding to pattern_sel
 		with pattern_sel_sig select pattern_gen <=
-			bit_seven & std_ulogic_vector(pattern_0) when "000",
-			bit_seven & std_ulogic_vector(pattern_1) when "001",
-			bit_seven & std_ulogic_vector(pattern_2) when "010",
-			bit_seven & std_ulogic_vector(pattern_3) when "011",
-			bit_seven & std_ulogic_vector(pattern_4) when "100",
+			bit_seven & std_logic_vector(pattern_0) when "000",
+			bit_seven & std_logic_vector(pattern_1) when "001",
+			bit_seven & std_logic_vector(pattern_2) when "010",
+			bit_seven & std_logic_vector(pattern_3) when "011",
+			bit_seven & std_logic_vector(pattern_4) when "100",
 			"00000000"                               when others;
 		
 end architecture;
