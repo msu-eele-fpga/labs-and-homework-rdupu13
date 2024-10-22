@@ -34,8 +34,8 @@ architecture led_patterns_avalon_arch of led_patterns_avalon is
 			rst             : in  std_logic;                    -- System reset (active high)
 			push_button     : in  std_logic;                    -- Push button to change state (active high)
 			switches        : in  std_logic_vector(3 downto 0); -- Switches that determine next state
-			hps_led_control : in  boolean;                       -- Software is in control when =1
-			base_period     : in  unsigned(7 downto 0);          -- LED blink rate
+			hps_led_control : in  boolean;                      -- Software is in control when =1
+			base_period     : in  unsigned(7 downto 0);         -- LED blink rate
 			led_reg         : in  std_logic_vector(7 downto 0); -- LED register
 			led             : out std_logic_vector(7 downto 0)  -- LED pins on board
 		);

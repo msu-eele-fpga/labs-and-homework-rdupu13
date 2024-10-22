@@ -247,6 +247,9 @@ architecture de10nano_arch of de10nano_top is
 			hps_io_hps_io_gpio_inst_gpio53  : inout std_logic;
 			hps_io_hps_io_gpio_inst_gpio54  : inout std_logic;
 			hps_io_hps_io_gpio_inst_gpio61  : inout std_logic;
+			led_patterns_push_button        : in    std_logic                     := 'X';             -- push_button
+            led_patterns_switches           : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- switches
+            led_patterns_led                : out   std_logic_vector(7 downto 0);                     -- led
 			memory_mem_a                    : out   std_logic_vector(14 downto 0);
 			memory_mem_ba                   : out   std_logic_vector(2 downto 0);
 			memory_mem_ck                   : out   std_logic;
@@ -263,6 +266,7 @@ architecture de10nano_arch of de10nano_top is
 			memory_mem_odt                  : out   std_logic;
 			memory_mem_dm                   : out   std_logic_vector(3 downto 0);
 			memory_oct_rzqin                : in    std_logic;
+			
 			clk_clk                         : in    std_logic;
 			reset_reset_n                   : in    std_logic
 		);
@@ -352,6 +356,10 @@ architecture de10nano_arch of de10nano_top is
 				memory_mem_odt     => hps_ddr3_odt,
 				memory_mem_dm      => hps_ddr3_dm,
 				memory_oct_rzqin   => hps_ddr3_rzq,
+				
+				led_patterns_push_button => not push_button_n(0),
+				led_patterns_switches    => std_logic_vector(sw),
+				led_patterns_led         => led,
 
 				clk_clk       => fpga_clk1_50,
 				reset_reset_n => push_button_n(1)
