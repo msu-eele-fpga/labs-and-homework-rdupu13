@@ -1,0 +1,218 @@
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep 'to \w' gibberish.txt 
+To be: that we end to sleep of so long a life;
+to die, to take cowards of troubles, and sweat pith and native us pause.
+open for whose thought, and the insolence to suffer the name of off this quietus makes
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep 'to \A' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep 'to ' gibberish.txt 
+To be: that we end to sleep of so long a life;
+to die, to take cowards of troubles, and sweat pith and native us pause.
+open for whose thought, and the insolence to suffer the name of off this quietus makes
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to ' gibberish.txt 
+To be: that we end to sleep of so long a life;
+to die, to take cowards of troubles, and sweat pith and native us pause.
+open for whose thought, and the insolence to suffer the name of off this quietus makes
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to \w' gibberish.txt 
+To be: that we end to sleep of so long a life;
+to die, to take cowards of troubles, and sweat pith and native us pause.
+open for whose thought, and the insolence to suffer the name of off this quietus makes
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to \w\' gibberish.txt 
+grep: Trailing backslash
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to \<\>' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to \<..\>' gibberish.txt 
+To be: that we end to sleep of so long a life;
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to \<....\>' gibberish.txt 
+to die, to take cowards of troubles, and sweat pith and native us pause.
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to \<.....\>' gibberish.txt 
+To be: that we end to sleep of so long a life;
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to \<......\>' gibberish.txt 
+open for whose thought, and the insolence to suffer the name of off this quietus makes
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to \<.......\>' gibberish.txt 
+to die, to take cowards of troubles, and sweat pith and native us pause.
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to ()' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to (.)' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to (..)' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to \b' gibberish.txt 
+To be: that we end to sleep of so long a life;
+to die, to take cowards of troubles, and sweat pith and native us pause.
+open for whose thought, and the insolence to suffer the name of off this quietus makes
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i 'to \w' gibberish.txt 
+To be: that we end to sleep of so long a life;
+to die, to take cowards of troubles, and sweat pith and native us pause.
+open for whose thought, and the insolence to suffer the name of off this quietus makes
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \w' gibberish.txt 
+To b
+to s
+to d
+to t
+to s
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \W' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \b' gibberish.txt 
+To 
+to 
+to 
+to 
+to 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to {}' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to {.}' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to {+.}' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to {.+}' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to {.*}' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to ' gibberish.txt 
+To 
+to 
+to 
+to 
+to 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to +.' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to .+' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to /w' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \w' gibberish.txt 
+To b
+to s
+to d
+to t
+to s
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \ww' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \w\w' gibberish.txt 
+To be
+to sl
+to di
+to ta
+to su
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \w\w\w' gibberish.txt 
+to sle
+to die
+to tak
+to suf
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \w\w\w\w' gibberish.txt 
+to slee
+to take
+to suff
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \w+' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to +\w' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \w.' gibberish.txt 
+To be
+to sl
+to di
+to ta
+to su
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to ..' gibberish.txt 
+To be
+to sl
+to di
+to ta
+to su
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to .+' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to .?' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to ?' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to ?.' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to []' gibberish.txt 
+grep: Unmatched [, [^, [:, [., or [=
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to [==]' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to [\w]' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to $' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \' gibberish.txt 
+grep: Trailing backslash
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to [a-q]' gibberish.txt 
+To b
+to d
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to [a-z]' gibberish.txt 
+To b
+to s
+to d
+to t
+to s
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to [a-z]+' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \b' gibberish.txt 
+To 
+to 
+to 
+to 
+to 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \b+' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \b.' gibberish.txt 
+To b
+to s
+to d
+to t
+to s
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to ....\b' gibberish.txt 
+To be: 
+to take
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \c' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \s' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \S' gibberish.txt 
+To b
+to s
+to d
+to t
+to s
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \w' gibberish.txt 
+To b
+to s
+to d
+to t
+to s
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to {\w}' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to +\w' gibberish.txt 
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ cat gibberish.txt 
+To be: that we end to sleep of so long a life;
+for who would fardels bear thought, and the oppressor's wrong,
+about the natural shocks the slings and enterprises of dispriz'd lose ills we have,
+grunt and enterprises of time, the wish'd.
+to die, to take cowards of troubles, and sweat pith and native us pause.
+There's that dreams may come when he heart-ache and sweat pith and natural shocks that pith the rub;
+for in the rub;
+open for whose thought, and the insolence to suffer the name of off this quietus makes
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to <>' gibberish.txt
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to <\w>' gibberish.txt
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \<\w\>' gibberish.txt
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \<..\>' gibberish.txt
+To be
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \<.+\>' gibberish.txt
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \<+.\>' gibberish.txt
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \<+\w\>' gibberish.txt
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to \<\w+\>' gibberish.txt
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to {.}' gibberish.txt
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to {3}' gibberish.txt
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to .{3}' gibberish.txt
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to {3}.' gibberish.txt
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to 3.' gibberish.txt
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o to  gibberish.txt
+To
+to
+to
+to
+to
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o to '\w'  gibberish.txt
+grep: \w: No such file or directory
+gibberish.txt:To
+gibberish.txt:to
+gibberish.txt:to
+gibberish.txt:to
+gibberish.txt:to
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to ..' gibberish.txt
+To be
+to sl
+to di
+to ta
+to su
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to ...' gibberish.txt
+To be:
+to sle
+to die
+to tak
+to suf
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to .....' gibberish.txt
+To be: t
+to sleep
+to die, 
+to take 
+to suffe
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to ......' gibberish.txt
+To be: th
+to sleep 
+to die, t
+to suffer
+ryan@ryan-VirtualBox:~/Documents/EELE467/labs-and-homework-rdupu13/sw/linux-cli-practice$ grep -i -o 'to ......' gibberish.txt
+
