@@ -114,3 +114,7 @@ transcript
 
 # Vim swap files
 *.swp
+
+# Disk image files
+*.img
+*.iso
