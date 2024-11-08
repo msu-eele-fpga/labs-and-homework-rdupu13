@@ -13,7 +13,8 @@ void usage()
 	fprintf(stderr, "    devmem will only read/write 32-bit values.\n\n");
 	fprintf(stderr, "    Arguments:\n");
 	fprintf(stderr, "        ADDRESS The address to read/write to/from\n");
-	fprintf(stderr, "        VALUE   The optional value to write to ADDRESS; if not given, a read will be performed.\n");
+	fprintf(stderr, "        VALUE   The optional value to write to ADDRESS;\n");
+	fprintf(stderr, "                if not given, a read will be performed.\n");
 }
 
 int main(int argc, char **argv)
@@ -39,7 +40,7 @@ int main(int argc, char **argv)
 	int fd = open("/dev/mem", O_RDWR | O_SYNC);
 	if (fd == -1)
 	{
-		fprinf(stderr, "Failed to open /dev/mem.\n");
+		fprintf(stderr, "Failed to open /dev/mem.\n");
 		return 1;
 	}
 
