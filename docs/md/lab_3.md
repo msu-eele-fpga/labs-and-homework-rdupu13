@@ -10,14 +10,9 @@ SoC and my PC. This will be very useful when developing code to run on the ARM.
 P.S. I learned a bit about linux servers.
 
 ## Deliverables
-<img src="">
 
-### Questions 
-
-> 
-
-
-
->  
+<img src="../assets/lab-3/hello_world_on_soc.png">
+Here is a screenshot of the PuTTY terminal that I communicate with the SoC on. As you can see, the "hello" 32-bit ARM
+binary is executed and "Hello, world!" is printed.
 
 
