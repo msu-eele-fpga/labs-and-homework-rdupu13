@@ -1,4 +1,4 @@
-# Lab 3:
+# Lab 8: "Hello World" Linux Kernel Module
 
 ## Overview
 
