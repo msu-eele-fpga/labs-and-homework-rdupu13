@@ -1,6 +1,10 @@
 # C Style Guide
 
-This style guide is taken mostly from [Harvard's CS50 style guide](https://cs50.readthedocs.io/style/c/) and the [Linux kernel coding style](https://www.kernel.org/doc/html/v4.10/process/coding-style.html) guide. There are discrepancies between the two style guides which are not necessarily reflected here. When writing kernel code, I will follow the kernel style guide more closely. When writing non-kernel code, I will follow this style guide (which is mix of the CS50 and kernel style guides).
+This style guide is taken mostly from [Harvard's CS50 style guide](https://cs50.readthedocs.io/style/c/) and the
+[Linux kernel coding style](https://www.kernel.org/doc/html/v4.10/process/coding-style.html) guide. There are
+discrepancies between the two style guides which are not necessarily reflected here. When writing kernel code, I
+will follow the kernel style guide more closely. When writing non-kernel code, I will follow this style guide (which
+is mix of the CS50 and kernel style guides).
 
 This style guide is not nearly as exhaustive as some you will come across in industry (see [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html), for instance).
 
@@ -55,7 +59,10 @@ multiple data declarations).  This leaves you room for a small comment on each
 item, explaining its use.
 
 ### Function documentation
-To document our functions, we'll use Linux [kernel-doc comments](https://www.kernel.org/doc/html/v4.10/doc-guide/kernel-doc.html#writing-kernel-doc-comments). The format is quite similar to [Doxygen](https://doxygen.nl/index.html) comments. 
+To document our functions, we'll use Linux
+[kernel-doc comments](https://www.kernel.org/doc/html/v4.10/doc-guide/kernel-doc.html#writing-kernel-doc-comments).
+The format is quite similar to [Doxygen](https://doxygen.nl/index.html) comments. 
+
 
 
 The general format of a function and function-like macro kernel-doc comment is::
@@ -100,9 +107,12 @@ of the comment starting with "Return:".
 ## Formatting
 
 ### Indentation
-In general, I prefer using 4 spaces for indentation. However, the Linux kernel prefers hard-tabs instead of spaces; they also prefer their editor's tab width to be set to 8 spaces. 
+In general, I prefer using 4 spaces for indentation. However, the Linux kernel prefers hard-tabs instead of spaces;
+they also prefer their editor's tab width to be set to 8 spaces. 
 
-For general C code, I will use 4 spaces for indentation. For kernel code and device trees, I will use hard-tabs (with my editor's tab-stop set to 8 spaces). You may choose to do the same or you may choose to stick to one of the two conventions.
+For general C code, I will use 4 spaces for indentation. For kernel code and device trees, I will use hard-tabs
+(with my editor's tab-stop set to 8 spaces). You may choose to do the same or you may choose to stick to one of the
+two conventions.
 
 Here's some nicely indented code:
 
@@ -121,10 +131,16 @@ for (int i = 0; i < argc; i++)
 
 ### Line Length
 
-By convention the maximum length of a line of code is 80 characters long in C, with that being historically grounded in standard-sized monitors on older computer terminals, which could display 24 lines vertically and 80 characters horizontally. Though modern technology has obsoleted the need to keep lines capped at 80 characters, it is still a guideline that should be considered a "soft stop." A line of 100 characters should really be the longest you write in C, else readers will generally need to scroll. If you need more than 100 characters, it may be time to rethink either your variable names or your overall design!
+By convention the maximum length of a line of code is 80 characters long in C, with that being historically
+grounded in standard-sized monitors on older computer terminals, which could display 24 lines vertically and 80
+characters horizontally. Though modern technology has obsoleted the need to keep lines capped at 80 characters,
+it is still a guideline that should be considered a "soft stop." A line of 100 characters should really be the
+longest you write in C, else readers will generally need to scroll. If you need more than 100 characters, it may
+be time to rethink either your variable names or your overall design!
 
 ### Bracket placement
 Brackets should be placed on their own line, for example: 
+
 ```c
 if (x > 0)
 {
@@ -170,7 +186,8 @@ Notice how:
 - there are single spaces around the `>` and around the `<`; and
 - there isn't any space immediately after each `(` or immediately before each `)`.
 
-To save space, some programmers like to keep the first curly brace on the same line as the condition itself, but we don't recommend, as it's harder to read, so don't do this:
+To save space, some programmers like to keep the first curly brace on the same line as the condition itself, but
+we don't recommend, as it's harder to read, so don't do this:
 
 ```c
 if (x < 0) {
@@ -279,7 +296,8 @@ main()
 }
 ```
 
-As for your own functions, be sure to define them similiarly, with each curly brace on its own line and with the return type on the same line as the function's name, just as we've done with `main`.
+As for your own functions, be sure to define them similiarly, with each curly brace on its own line and with the
+return type on the same line as the function's name, just as we've done with `main`.
 
 
 
@@ -287,7 +305,8 @@ As for your own functions, be sure to define them similiarly, with each curly br
 
 #### for
 
-Whenever you need temporary variables for iteration, use `i`, then `j`, then `k`, unless more specific names would make your code more readable:
+Whenever you need temporary variables for iteration, use `i`, then `j`, then `k`, unless more specific names would
+make your code more readable:
 
 ```c
 for (int i = 0; i < LIMIT; i++)

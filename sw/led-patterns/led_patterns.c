@@ -9,31 +9,29 @@
 void usage()
 {
 	fprintf(stderr, "usage: led_patterns [-hv] [-p PATTERN TIME ...] [-f FILE]\n");
-	fprintf(stderr, "    \n");
-	fprintf(stderr, "    \n\n");
+	fprintf(stderr, "    Create a custom LED pattern from PATTERN TIME... or FILE\n\n");
 	fprintf(stderr, "    options:\n");
 	fprintf(stderr, "        -h, --help       show this help message and exit\n");
 	fprintf(stderr, "        -v, --verbose    print more information\n");
 	fprintf(stderr, "        -p, --pattern    manually input an LED pattern\n");
+	fprintf(stderr, "        -f, --file       use an LED pattern file as input\n");
 }
 
 int main(int argc, char **argv)
 {
 	// This is the size of a page of memory in the system. Typically 4096 bytes.
 	const size_t PAGE_SIZE = sysconf(_SC_PAGE_SIZE);
-
-	if (argc == 1)
+	
+	while()
 	{
-		// No arguments were given, so print the usage text and exit;
-		usage();
-		return 1;
+		
 	}
 
 	// If VALUE was given, perform a write operation.
 	bool is_write = (argc == 3) ? true : false;
-
+	
 	const uint32_t ADDRESS = strtoul(argv[1], NULL, 0);
-
+	
 	// Open /dev/mem, which is an image of the main system memory.
 	// We use synchronous write operations (O_SYNC) to ensure that the value
 	// is fully written to the underlying hardware before the write call returns.
@@ -43,7 +41,7 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Failed to open /dev/mem.\n");
 		return 1;
 	}
-
+	
 	// mmap needs to map memory at page boundaries; that is, the address we are
 	// mapping needs to be page-aligned. The ~(PAGE_SIZE - 1) bitmask returns
 	// the closest page-aligned address that contains ADDRESS in the page.
@@ -102,25 +100,4 @@ int main(int argc, char **argv)
 	}
 
 	return 0;
-}
-
-
-/**
- * main() -
- * @arg1: 
- * @arg2: 
- * 
- * 
- * Return: 
- */ 
-int main(int argc, char argv[])
-{
-	if (argc == 0)
-	{
-		usage();
-		return 1;
-	}
-
-
-	
 }
