@@ -2,26 +2,22 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include <math.h>
 #include <string.h>
+#include <time.h>
 #include <sys/mman.h>	// for mmap
 #include <fcntl.h>	// for file open flags
 #include <unistd.h>	// for getting the page size
 
 
 
-volatile uint32_t *hps_ctl;
-volatile uint32_t *led_reg;
-volatile uint32_t *base_pd;
+//volatile uint32_t *hps_ctl;
+//volatile uint32_t *led_reg;
+//volatile uint32_t *base_pd;
 
-bool v = false;
-bool p = false;
-bool f = false;
+const int MAX_PATTERN_ARGS = 10;
+const int MAX_PATTERNS = 5;
+const int FILE_MAX_COLUMNS = 120;
 
-char *pattern_args[10];
-FILE *input_file;
-uint8_t patterns[5];
-unsigned int times[5];
 
 
 
@@ -41,6 +37,7 @@ void usage(void)
 	fprintf(stderr, "    -v                    print more information during execution\n");
 	fprintf(stderr, "    -p PATTERN TIME ...   display hex PATTERN on LEDs for TIME milliseconds\n");
 	fprintf(stderr, "    -f FILE               display pattern-time pairs from FILE\n\n");
+	return;
 }
 
 
@@ -58,8 +55,13 @@ void usage(void)
  * - The lowest byte of base_pd (base_period in VHDL) is a fixed-point number controlling the speed at
  *       which the LED component updates its patterns.
  */
-int get_reg_addr(void)
+int get_reg_addr(bool v)
 {
+	if (v)
+	{
+		printf("Opening /dev/mem...\n");
+	}
+	
 	// Open /dev/mem, which is an image of the main system memory
 	//     O_RDWR = open file for reading and writing
 	//     O_SYNC = ensure value is written before the write call returns
@@ -68,105 +70,35 @@ int get_reg_addr(void)
 	// Print error message if file failed to open
 	if (open_status == -1)
 	{
-		fprintf(stderr, "Failed to open /dev/mem.\n");
+		printf("Failed to open /dev/mem.\n");
 		return 1;
 	}
 	
+	if (v)
+	{
+		printf("Mapping address...\n");
+	}
+	
 	// Map a page of pysical memory into virtual memory
-	uint32_t *led_comp_page = (uint32_t *)mmap(NULL, 4096,
+	uint32_t led_comp_page[] = (uint32_t *)mmap(NULL, 4096,
 		PROT_READ | PROT_WRITE, MAP_SHARED, open_status, 0xFF200000);
 	
 	// Print error message if mapping failed
 	if (led_comp_page == MAP_FAILED)
 	{
-		fprintf(stderr, "Failed to map memory.\n");
+		printf("Failed to map memory.\n");
 		return 1;
 	}
 	
 	// Define registers (each 32-bit) based on virtual memory
-	hps_ctl = led_comp_page;
-	led_reg = led_comp_page + 4;
-	base_pd = led_comp_page + 8;
+	//hps_ctl = led_comp_page;
+	//led_reg = led_comp_page + 4;
+	//base_pd = led_comp_page + 8;
 	
-	return 0;
-}
-
-
-
-/**
- * parse_pattern_args() - 
- * 
- */
-int parse_pattern_args(int argc, char **argv)
-{
-	int j = 0;
-	for (int i = 0; i < argc; i += 2)
-	{
-		int pattern_bounder = (int) strtoul(argv[i], NULL, 10);
+	//printf("hps_ctl = 0x%08x\n", hps_ctl);
+	//printf("led_reg = 0x%08x\n", led_reg);
+	//printf("base_pd = 0x%08x\n", base_pd);
 		
-		if (pattern_bounder > 255)
-		{
-			printf("Pattern '%d' exceeds 255 (0xFF).\n", pattern_bound);
-			return 1;
-		}
-		
-		patterns[j] = (uint8_t) pattern_bounder;
-		j++;
-	}
-	
-	j = 0;
-	for (int i = 1; i < argc; i += 2)
-	{
-		times[j] = (unsigned int) strtoul(argv[i], NULL, 10);
-		j++;
-	}
-	
-	
-	// Print final arrays for debug
-	for (int i = 0; i < 2; i++)
-	{
-		printf("%d ", patterns[i]);
-	}
-	printf("\n");
-	
-	for (int i = 0; i < 2; i++)
-	{
-		printf("%d ", times[i]);
-	}
-	printf("\n");
-	
-	return 0;
-}
-
-
-
-
-/**
- * read_file() - 
- * 
- */
-int read_file(char *filename)
-{
-	f = true;
-	input_file = fopen(filename, "r");
-	
-	if (input_file == NULL)
-	{
-		printf("Failed to open file.\n");
-		return 1;
-	}
-	
-	char line_str[120];
-	int arg_count = 0;
-	while (fgets(line_str, 120, input_file) != NULL)
-	{
-		scanf(line_str, &pattern_args[arg_count],
-						&pattern_args[arg_count + 1]);
-		arg_count += 2;
-	}
-	
-	fclose(input_file);
-	
 	return 0;
 }
 
@@ -180,19 +112,20 @@ int read_file(char *filename)
  */
 int main(int argc, char **argv)
 {
-	// Calculate register addresses
-	int init_status = get_reg_addr();
+	bool v = false;
+	bool p = false;
+	bool f = false;
 	
-	if (init_status == 1)
+	FILE *input_file;
+	char *pattern_args[MAX_PATTERN_ARGS];
+	for (int i = 0; i < MAX_PATTERN_ARGS; i++)
 	{
-		return 1;
+		pattern_args[i] = malloc(MAX_PATTERN_ARGS * sizeof(char));
 	}
+	int arg_count = 0;	
 	
-	//int next_opt = getopt(argc, argv, "hvp:f:");
-	
-	int arg_count = 0;
-	
-	for (int i = 0; i < argc; i++)
+	// Parse argv and set flags
+	for (int i = 1; i < argc; i++)
 	{
 		if (strcmp(argv[i], "-h") == 0)
 		{
@@ -215,54 +148,159 @@ int main(int argc, char **argv)
 		else
 		{
 			pattern_args[arg_count] = argv[i];
-			arg_count++;
+			arg_count += 1;
 		}
-	}	
+	}
 	
+	// If neither or both -p -f flags given, print usage and exit
 	if (!(p ^ f))
 	{
-		printf("Neither or both -p, -f was given.\n");
-		//usage();
+		printf("Neither or both -p -f flags were given.\n\n");
+		usage();
 		return 1;
 	}
 	
+	// File routine
 	if (f)
 	{
-		if (strlen(pattern_args) > 1)
+		// Ensure correct argument count
+		if (arg_count > 1)
 		{
 			printf("Too many arguments.\n");
 			return 1;
 		}
-		else if (strlen(pattern_args) < 1)
+		else if (arg_count < 1)
 		{
 			printf("Missing filename.\n");
 			return 1;
 		}
-		
-		int read_status = read_file(pattern_args[0]);
-		
-		if (read_status == 1)
+			
+		// Open pattern file fo reading
+		if (v)
 		{
+			printf("Opening file...\n");
+		}
+		input_file = fopen(pattern_args[0], "r");
+		if (input_file == NULL)
+		{
+			printf("Failed to open file.\n");
 			return 1;
 		}
+		
+		// Read patterns and overwrite pattern_args
+		if (v)
+		{
+			printf("Reading file...\n");
+		}
+		char line_str[FILE_MAX_COLUMNS];
+		arg_count = 0;
+		while (fscanf(input_file, "%s %s", pattern_args[arg_count],
+										   pattern_args[arg_count + 1]) != EOF)
+		{
+			printf("%s %s\n", pattern_args[arg_count], pattern_args[arg_count + 1]);
+			arg_count += 2;
+		}
+	
+		// When file routine is finished, -p and -f can use the same code
 	}
 	
-	
-	if (strlen(pattern_args) == 0)
+	// Ensure correct number of pattern arguments
+	if (arg_count == 0)
 	{
-		printf("No pattern-time arguments given.");
+		printf("No pattern arguments given.\n");
 		return 1;
 	}
 	
-	if (fmod(strlen(pattern_args), 2) != 0)
+	if (arg_count % 2 != 0)
 	{
 		printf("Pattern argument missing associated time.\n");
 		return 1;
 	}
 	
-	parse_pattern_args(strlen(pattern_args), pattern_args);
+	if (v)
+	{
+		printf("Got arguments:\n");
+		for (int i = 0; i < arg_count; i++)
+		{
+			printf("    %s\n", pattern_args[i]);
+		}
+	}
 	
+	// Translate arguments into numbers 
+	unsigned long int patterns[MAX_PATTERNS];
+	unsigned long int times_ms[MAX_PATTERNS];
+	char *endptr;
 	
+	if (v)
+	{
+		printf("Converting to integers...\n");
+	}
 	
+	for (int i = 0; i < arg_count; i += 2)
+	{
+		// Ensure hex number is no larger than 8-bits since there are 8 LEDs
+		patterns[i] = strtoul(pattern_args[i], &endptr, 16);
+		if (patterns[i] > 255)
+		{
+			printf("Pattern '%s' is longer than 8-bits.\n", pattern_args[i]);
+			return 1;
+		}
+		times_ms[i] = strtoul(pattern_args[i + 1], &endptr, 10);
+	}
+	
+	for (int i = 0; i < arg_count; i++)
+	{
+		printf("    %-16lX    %-16lu\n", patterns[i], times_ms[i + 1]);
+	}
+	
+	// Calculate register addresses
+	if (v)
+	{
+		printf("Calculating register addresses...\n");
+	}
+	//int init_status = get_reg_addr(v);
+	//if (init_status == 1)
+	//{
+	//	return 1;
+	//}
+	
+	// Seize hardware control of LED patterns component
+	if (v)
+	{
+		printf("Gaining control of component...\n");
+	}
+	//*hps_ctl = 0x00000001;
+	
+	// Display patterns
+	int i = 0;
+	clock_t start_cyc;	
+	clock_t elapsed_time;
+	for (i = 0; i < arg_count / 2; i++)
+	{
+		if (v)
+		{
+			printf("Displaying %lX for %lu ms\n", patterns[i], times_ms[i]);
+		}
+		
+		//*led_reg = patterns[i];
+		
+		sleep(1);
+		// Wait for times_ms[i] milliseconds
+		//start_cyc = clock();
+		//elapsed_time = (unsigned long int) 1000 * (clock() - start_cyc) / CLOCKS_PER_SEC;
+		//while (elapsed_time < times_ms[i])
+		//{
+		//	elapsed_time = (unsigned long int) 1000 * (clock() - start_cyc) / CLOCKS_PER_SEC;
+		//	printf("%lu ", elapsed_time);
+		//}
+	}
+	
+	// Relieve control of LED patterns component and close input file
+	if (v)
+	{
+		printf("Relieving control and exiting...\n");
+	}
+	//*hps_ctl = 0x00000000;
+	fclose(input_file);
 	return 0;
 }
