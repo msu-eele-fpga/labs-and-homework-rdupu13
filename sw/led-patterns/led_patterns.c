@@ -7,16 +7,21 @@
 #include <sys/mman.h>	// for mmap
 #include <fcntl.h>	// for file open flags
 #include <unistd.h>	// for getting the page size
+#include <signal.h> // for ctl+c interrupt handling
 
 
 
-//volatile uint32_t *hps_ctl;
-//volatile uint32_t *led_reg;
-//volatile uint32_t *base_pd;
+volatile uint32_t *hps_ctl;
+volatile uint32_t *led_reg;
+volatile uint32_t *base_pd;
+
+bool v = false;
+bool p = false;
+bool f = false;
+FILE *input_file;
 
 const int MAX_PATTERNS = 20;
 const int FILE_MAX_COLUMNS = 120;
-
 
 
 
@@ -91,15 +96,34 @@ int get_reg_addr(bool v)
 	}
 	
 	// Define registers (each 32-bit) based on virtual memory
-	//hps_ctl = led_comp_page;
-	//led_reg = led_comp_page + 1;
-	//base_pd = led_comp_page + 2;
+	hps_ctl = led_comp_page;
+	led_reg = led_comp_page + 1;
+	base_pd = led_comp_page + 2;
 	
-	//printf("hps_ctl = 0x%08x\n", hps_ctl);
-	//printf("led_reg = 0x%08x\n", led_reg);
-	//printf("base_pd = 0x%08x\n", base_pd);
+	printf("hps_ctl = 0x%08x\n", hps_ctl);
+	printf("led_reg = 0x%08x\n", led_reg);
+	printf("base_pd = 0x%08x\n", base_pd);
 		
 	return 0;
+}
+
+
+
+void ctlc_handler(int sig)
+{
+	signal(sig, SIG_IGN);
+	// Relieve control of LED patterns component and close input file
+	printf("\n\n\n\n");
+	if (v)
+	{
+		printf("Ctl+C pressed.\nRelieving control and exiting...\n");
+	}
+	//*hps_ctl = 0x00000000;
+	if (f)
+	{
+		fclose(input_file);
+	}
+	exit(0);
 }
 
 
@@ -112,11 +136,8 @@ int get_reg_addr(bool v)
  */
 int main(int argc, char **argv)
 {
-	bool v = false;
-	bool p = false;
-	bool f = false;
+	signal(SIGINT, ctlc_handler);
 	
-	FILE *input_file;
 	char *pattern_args[MAX_PATTERNS * 2];
 	for (int i = 0; i < MAX_PATTERNS * 2; i++)
 	{
@@ -235,8 +256,8 @@ int main(int argc, char **argv)
 	{
 		printf("Converting to integers...\n");
 	}
-	int *patterns = (int *)malloc((arg_count / 2) * sizeof(int));
-	int *times_ms = (int *)malloc((arg_count / 2) * sizeof(int));
+	int patterns[arg_count / 2]; //(int *)malloc((arg_count / 2) * sizeof(int));
+	int times_ms[arg_count / 2]; //(int *)malloc((arg_count / 2) * sizeof(int));
 	int pattern_bounder;
 	int pattern_scan_num;
 	int time_scan_num;
@@ -295,35 +316,28 @@ int main(int argc, char **argv)
 	int i = 0;
 	clock_t start_cyc;	
 	clock_t elapsed_time;
-	for (i = 0; i < arg_count / 2; i++)
+	while (true)
 	{
-		if (v)
+		for (i = 0; i < arg_count / 2; i++)
 		{
-			printf("Displaying %X for %d ms\n", patterns[i], times_ms[i]);
+			if (v)
+			{
+				printf("Displaying %X for %d ms\n", patterns[i], times_ms[i]);
+			}
+			
+			//*led_reg = patterns[i];
+			
+			sleep(1);
+			// Wait for times_ms[i] milliseconds
+			//start_cyc = clock();
+			//elapsed_time = (unsigned long int) 1000 * (clock() - start_cyc) / CLOCKS_PER_SEC;
+			//while (elapsed_time < times_ms[i])
+			//{
+			//	elapsed_time = (unsigned long int) 1000 * (clock() - start_cyc) / CLOCKS_PER_SEC;
+			//	printf("%lu ", elapsed_time);
+			//}
 		}
-		
-		//*led_reg = patterns[i];
-		
-		sleep(1);
-		// Wait for times_ms[i] milliseconds
-		//start_cyc = clock();
-		//elapsed_time = (unsigned long int) 1000 * (clock() - start_cyc) / CLOCKS_PER_SEC;
-		//while (elapsed_time < times_ms[i])
-		//{
-		//	elapsed_time = (unsigned long int) 1000 * (clock() - start_cyc) / CLOCKS_PER_SEC;
-		//	printf("%lu ", elapsed_time);
-		//}
 	}
 	
-	// Relieve control of LED patterns component and close input file
-	if (v)
-	{
-		printf("Relieving control and exiting...\n");
-	}
-	//*hps_ctl = 0x00000000;
-	if (f)
-	{
-		fclose(input_file);
-	}
 	return 0;
 }
