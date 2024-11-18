@@ -14,8 +14,7 @@
 //volatile uint32_t *led_reg;
 //volatile uint32_t *base_pd;
 
-const int MAX_PATTERN_ARGS = 10;
-const int MAX_PATTERNS = 5;
+const int MAX_PATTERNS = 20;
 const int FILE_MAX_COLUMNS = 120;
 
 
@@ -79,8 +78,9 @@ int get_reg_addr(bool v)
 		printf("Mapping address...\n");
 	}
 	
+	
 	// Map a page of pysical memory into virtual memory
-	uint32_t led_comp_page[] = (uint32_t *)mmap(NULL, 4096,
+	uint32_t *led_comp_page = (uint32_t *) mmap(NULL, 4096,
 		PROT_READ | PROT_WRITE, MAP_SHARED, open_status, 0xFF200000);
 	
 	// Print error message if mapping failed
@@ -92,8 +92,8 @@ int get_reg_addr(bool v)
 	
 	// Define registers (each 32-bit) based on virtual memory
 	//hps_ctl = led_comp_page;
-	//led_reg = led_comp_page + 4;
-	//base_pd = led_comp_page + 8;
+	//led_reg = led_comp_page + 1;
+	//base_pd = led_comp_page + 2;
 	
 	//printf("hps_ctl = 0x%08x\n", hps_ctl);
 	//printf("led_reg = 0x%08x\n", led_reg);
@@ -117,10 +117,10 @@ int main(int argc, char **argv)
 	bool f = false;
 	
 	FILE *input_file;
-	char *pattern_args[MAX_PATTERN_ARGS];
-	for (int i = 0; i < MAX_PATTERN_ARGS; i++)
+	char *pattern_args[MAX_PATTERNS * 2];
+	for (int i = 0; i < MAX_PATTERNS * 2; i++)
 	{
-		pattern_args[i] = malloc(MAX_PATTERN_ARGS * sizeof(char));
+		pattern_args[i] = malloc(MAX_PATTERNS * 2 * sizeof(char));
 	}
 	int arg_count = 0;	
 	
@@ -129,7 +129,6 @@ int main(int argc, char **argv)
 	{
 		if (strcmp(argv[i], "-h") == 0)
 		{
-			printf("Print usage text\n");
 			usage();
 			return 1;
 		}
@@ -197,7 +196,12 @@ int main(int argc, char **argv)
 		while (fscanf(input_file, "%s %s", pattern_args[arg_count],
 										   pattern_args[arg_count + 1]) != EOF)
 		{
-			printf("%s %s\n", pattern_args[arg_count], pattern_args[arg_count + 1]);
+			if (v)
+			{
+				printf("Line %d:     %s %s\n", arg_count / 2,
+					   pattern_args[arg_count],
+					   pattern_args[arg_count + 1]);
+			}
 			arg_count += 2;
 		}
 	
@@ -219,38 +223,54 @@ int main(int argc, char **argv)
 	
 	if (v)
 	{
-		printf("Got arguments:\n");
-		for (int i = 0; i < arg_count; i++)
+		printf("Got %d arguments:\n", arg_count);
+		for (int i = 0; i < arg_count; i += 2)
 		{
-			printf("    %s\n", pattern_args[i]);
+			printf("    %s    %s\n", pattern_args[i], pattern_args[i + 1]);
 		}
 	}
 	
 	// Translate arguments into numbers 
-	unsigned long int patterns[MAX_PATTERNS];
-	unsigned long int times_ms[MAX_PATTERNS];
-	char *endptr;
-	
 	if (v)
 	{
 		printf("Converting to integers...\n");
 	}
-	
+	int *patterns = (int *)malloc((arg_count / 2) * sizeof(int));
+	int *times_ms = (int *)malloc((arg_count / 2) * sizeof(int));
+	int pattern_bounder;
+	int pattern_scan_num;
+	int time_scan_num;
 	for (int i = 0; i < arg_count; i += 2)
 	{
 		// Ensure hex number is no larger than 8-bits since there are 8 LEDs
-		patterns[i] = strtoul(pattern_args[i], &endptr, 16);
-		if (patterns[i] > 255)
+		pattern_scan_num = sscanf(pattern_args[i], "%x", &pattern_bounder);
+		if (pattern_scan_num == 0)
+		{
+			printf("Invalid format for pattern argument '%s'.\n\n", pattern_args[i]);
+			usage();
+			return 1;
+		}
+		if (pattern_bounder > 255)
 		{
 			printf("Pattern '%s' is longer than 8-bits.\n", pattern_args[i]);
 			return 1;
 		}
-		times_ms[i] = strtoul(pattern_args[i + 1], &endptr, 10);
+		patterns[i] = pattern_bounder;
+		time_scan_num = sscanf(pattern_args[i + 1], "%d", &times_ms[i]);
+		if (time_scan_num == 0)
+		{
+			printf("Invalid format for time argument '%s'\n\n", pattern_args[i + 1]);
+			usage();
+			return 1;
+		}
 	}
 	
-	for (int i = 0; i < arg_count; i++)
+	if (v)
 	{
-		printf("    %-16lX    %-16lu\n", patterns[i], times_ms[i + 1]);
+		for (int i = 0; i < arg_count / 2; i++)
+		{
+			printf("    0x%-16X    %-16d\n", patterns[i], times_ms[i]);
+		}
 	}
 	
 	// Calculate register addresses
@@ -279,7 +299,7 @@ int main(int argc, char **argv)
 	{
 		if (v)
 		{
-			printf("Displaying %lX for %lu ms\n", patterns[i], times_ms[i]);
+			printf("Displaying %X for %d ms\n", patterns[i], times_ms[i]);
 		}
 		
 		//*led_reg = patterns[i];
@@ -301,6 +321,9 @@ int main(int argc, char **argv)
 		printf("Relieving control and exiting...\n");
 	}
 	//*hps_ctl = 0x00000000;
-	fclose(input_file);
+	if (f)
+	{
+		fclose(input_file);
+	}
 	return 0;
 }
