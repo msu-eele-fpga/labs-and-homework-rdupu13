@@ -20,7 +20,7 @@ bool p = false;
 bool f = false;
 FILE *input_file;
 
-const int MAX_PATTERNS = 20;
+const int MAX_PATTERNS = 100;
 const int FILE_MAX_COLUMNS = 120;
 
 
@@ -100,9 +100,12 @@ int get_reg_addr(bool v)
 	led_reg = led_comp_page + 1;
 	base_pd = led_comp_page + 2;
 	
-	printf("hps_ctl = 0x%08x\n", hps_ctl);
-	printf("led_reg = 0x%08x\n", led_reg);
-	printf("base_pd = 0x%08x\n", base_pd);
+	if (v)
+	{
+		printf("hps_ctl = 0x%08x\n", hps_ctl);
+		printf("led_reg = 0x%08x\n", led_reg);
+		printf("base_pd = 0x%08x\n", base_pd);
+	}
 		
 	return 0;
 }
@@ -118,7 +121,7 @@ void ctlc_handler(int sig)
 	{
 		printf("Ctl+C pressed.\nRelieving control and exiting...\n");
 	}
-	//*hps_ctl = 0x00000000;
+	*hps_ctl = 0x00000000;
 	if (f)
 	{
 		fclose(input_file);
@@ -256,15 +259,15 @@ int main(int argc, char **argv)
 	{
 		printf("Converting to integers...\n");
 	}
-	int patterns[arg_count / 2]; //(int *)malloc((arg_count / 2) * sizeof(int));
-	int times_ms[arg_count / 2]; //(int *)malloc((arg_count / 2) * sizeof(int));
+	int *patterns = (int *) malloc((arg_count / 2) * sizeof(int));
+	int *times_ms = (int *) malloc((arg_count / 2) * sizeof(int));
 	int pattern_bounder;
 	int pattern_scan_num;
 	int time_scan_num;
 	for (int i = 0; i < arg_count; i += 2)
 	{
 		// Ensure hex number is no larger than 8-bits since there are 8 LEDs
-		pattern_scan_num = sscanf(pattern_args[i], "%x", &pattern_bounder);
+		pattern_scan_num = sscanf(pattern_args[i], "%X", &pattern_bounder);
 		if (pattern_scan_num == 0)
 		{
 			printf("Invalid format for pattern argument '%s'.\n\n", pattern_args[i]);
@@ -276,8 +279,8 @@ int main(int argc, char **argv)
 			printf("Pattern '%s' is longer than 8-bits.\n", pattern_args[i]);
 			return 1;
 		}
-		patterns[i] = pattern_bounder;
-		time_scan_num = sscanf(pattern_args[i + 1], "%d", &times_ms[i]);
+		patterns[i / 2] = pattern_bounder;
+		time_scan_num = sscanf(pattern_args[i + 1], "%d", &times_ms[i / 2]);
 		if (time_scan_num == 0)
 		{
 			printf("Invalid format for time argument '%s'\n\n", pattern_args[i + 1]);
@@ -299,18 +302,18 @@ int main(int argc, char **argv)
 	{
 		printf("Calculating register addresses...\n");
 	}
-	//int init_status = get_reg_addr(v);
-	//if (init_status == 1)
-	//{
-	//	return 1;
-	//}
+	int init_status = get_reg_addr(v);
+	if (init_status == 1)
+	{
+		return 1;
+	}
 	
 	// Seize hardware control of LED patterns component
 	if (v)
 	{
 		printf("Gaining control of component...\n");
 	}
-	//*hps_ctl = 0x00000001;
+	*hps_ctl = 0x00000001;
 	
 	// Display patterns
 	int i = 0;
@@ -325,17 +328,8 @@ int main(int argc, char **argv)
 				printf("Displaying %X for %d ms\n", patterns[i], times_ms[i]);
 			}
 			
-			//*led_reg = patterns[i];
-			
-			sleep(1);
-			// Wait for times_ms[i] milliseconds
-			//start_cyc = clock();
-			//elapsed_time = (unsigned long int) 1000 * (clock() - start_cyc) / CLOCKS_PER_SEC;
-			//while (elapsed_time < times_ms[i])
-			//{
-			//	elapsed_time = (unsigned long int) 1000 * (clock() - start_cyc) / CLOCKS_PER_SEC;
-			//	printf("%lu ", elapsed_time);
-			//}
+			*led_reg = patterns[i];
+			usleep(1000 * times_ms[i]);
 		}
 	}
 	

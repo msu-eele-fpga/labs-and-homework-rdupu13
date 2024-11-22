@@ -16,53 +16,54 @@ entity pwm_controller is
 		period     : in  unsigned(16 downto 0);
 		-- PWM duty cycle between 0 and 1, out-of-range values are hard-limited
 		-- duty_cycle data type: u12.11
-		duty cycle : in  unsigned(11 downto 0);
-		output     : out std_logic;
+		duty_cycle : in  unsigned(11 downto 0);
+		output     : out std_logic
 	);
 end entity;
 
 architecture pwm_controller_arch of pwm_controller is
 	
+	constant CYC_PER_SEC : natural(1000000000 ns / CLK_PERIOD);
 	
 	signal cyc_per_period : natural
-		:= natural(period(16 downto 11)) / CLK_PERIOD
-		 + natural(period(10 downto 0)) / (2048 * CLK_PERIOD);
+		:= to_integer(period(16 downto 11)) * CYC_PER_SEC
+		 + to_integer(period(10 downto 0)) * CYC_PER_SEC / 2048;
 	
 	signal cyc_per_dc : natural
-		:= natural(duty_cycle(10 downto 0)) * cyc_per_period / CLK_PERIOD;
+		:= to_integer(duty_cycle(10 downto 0)) * cyc_per_period / 2048;
 	
-	signal dc_is_one : boolean := boolean(duty_cycle(11));
+	signal dc_is_one : boolean := (duty_cycle(11) = '1');
 	signal counter   : natural := 0;
 	
+begin
+	
+	PULSE_WIDTH_MODULATION : process (clk, rst, cyc_per_period, cyc_per_dc, dc_is_one)
 	begin
-		
-		PULSE_WIDTH_MODULATION : process (clk, rst, cyc_per_period, cyc_per_dc)
-		begin
-			if rst = '1' then
-				output <= '0';
+		if rst = '1' then
+			output <= '0';
+			counter <= 0;
+			
+		elsif rising_edge(clk) then
+			if dc_is_one then
+				output <= '1';
 				counter <= 0;
 				
-			elsif rising_edge(clk) then
-				if dc_is_one then
+			else
+				if counter < cyc_per_dc then
 					output <= '1';
-					counter <= 0;
+					counter <= counter + 1;
+					
+				elsif counter >= cyc_per_dc and counter < cyc_per_period then
+					output <= '0';
+					counter <= counter + 1;
 					
 				else
-					if counter < cyc_per_dc then
-						output <= '1';
-						counter <= counter + 1;
-						
-					elsif counter >= cyc_per_dc and counter < cyc_per_period then
-						output <= '0';
-						counter <= counter + 1;
-						
-					else
-						output <= '1';
-						counter <= 1;
-						
-					end if;
+					output <= '1';
+					counter <= 1;
+					
 				end if;
 			end if;
-		end process;
-		
+		end if;
+	end process;
+	
 end architecture;
