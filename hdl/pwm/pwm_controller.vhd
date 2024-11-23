@@ -23,19 +23,19 @@ end entity;
 
 architecture pwm_controller_arch of pwm_controller is
 	
-	constant CYC_PER_SEC : natural(1000000000 ns / CLK_PERIOD);
+	constant CYC_PER_SEC : natural := 1000000000 ns / CLK_PERIOD;
 	
-	signal cyc_per_period : natural
-		:= to_integer(period(16 downto 11)) * CYC_PER_SEC
-		 + to_integer(period(10 downto 0)) * CYC_PER_SEC / 2048;
-	
-	signal cyc_per_dc : natural
-		:= to_integer(duty_cycle(10 downto 0)) * cyc_per_period / 2048;
-	
-	signal dc_is_one : boolean := (duty_cycle(11) = '1');
+	signal cyc_per_period : natural;
+	signal cyc_per_dc : natural;
+	signal dc_is_one : boolean;
 	signal counter   : natural := 0;
 	
 begin
+	
+	cyc_per_period <= to_integer(period(16 downto 11)) * CYC_PER_SEC
+		            + to_integer(period(10 downto 0)) * CYC_PER_SEC / 2048;
+	cyc_per_dc     <= to_integer(duty_cycle(10 downto 0)) * cyc_per_period / 2048;
+	dc_is_one      <= (duty_cycle(11) = '1');
 	
 	PULSE_WIDTH_MODULATION : process (clk, rst, cyc_per_period, cyc_per_dc, dc_is_one)
 	begin
