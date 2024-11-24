@@ -1,1 +1,1 @@
-../../hdl/pwm/de10nano_top.vhd
+../../hdl/pwm-rgb-led/de10nano_top.vhd
