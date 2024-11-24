@@ -7,8 +7,8 @@ end entity;
 
 architecture pwm_controller_tb_arch of pwm_controller_tb is
 	
-	constant DUT_CLK_PERIOD : time := 20 ns;
-	constant NUM_RUN_CYC    : natural := 500; -- * (1000000000 / DUT_CLK_PERIOD);
+	constant DUT_CLK_PERIOD : time := 10 ms;
+	constant NUM_RUN_CYC    : natural := 5 sec / DUT_CLK_PERIOD;
 	
 	signal clk_tb        : std_logic;
 	signal rst_tb        : std_logic;
@@ -25,11 +25,7 @@ architecture pwm_controller_tb_arch of pwm_controller_tb is
 		(
 			clk        : in  std_logic;
 			rst        : in  std_logic;
-			-- PWM period in milliseconds
-			-- period = 28.22
 			period     : in  unsigned(16 downto 0);
-			-- PWM duty cycle between 0 and 1, out-of-range values are hard-limited
-			-- duty_cycle = 30.29
 			duty_cycle : in  unsigned(11 downto 0);
 			output     : out std_logic
 		);
@@ -55,18 +51,50 @@ begin
 	-- PWM stimulation (clk and rst)
 	STIMULUS : process
 	begin
-		clk_tb <= '0';
-		rst_tb <= '1'; wait for DUT_CLK_PERIOD * 5;
-		rst_tb <= '0';
-		period_tb     <= "00000100000000000";
-		duty_cycle_tb <=      "010010000000";
-		wait for DUT_CLK_PERIOD * 5;
 		
+		-- Reset 
+		clk_tb        <= '0';
+		rst_tb        <= '1';
+		wait for DUT_CLK_PERIOD * 2;
+		rst_tb        <= '0';
+		wait for DUT_CLK_PERIOD * 2;
+		
+		-- Period = 0.78125 s
+		-- Duty cycle = 1.00 s
+		period_tb     <= "00000011001000000";
+		duty_cycle_tb <=      "110010000000";
 		for i in 0 to NUM_RUN_CYC loop
 			clk_tb <= '1'; wait for DUT_CLK_PERIOD / 2;
 			clk_tb <= '0'; wait for DUT_CLK_PERiOD / 2;
 		end loop;
 		
-	end process;
+		-- Period = 0.1.
+		-- Duty cycle = 
+		period_tb     <= "0000011010011001";
+		duty_cycle_tb <=      "010101010101";
+		for i in 0 to NUM_RUN_CYC loop
+			clk_tb <= '1'; wait for DUT_CLK_PERIOD / 2;
+			clk_tb <= '0'; wait for DUT_CLK_PERiOD / 2;
+		end loop;
+		
+		-- Period = 
+		-- Duty cycle = 
+		period_tb     <= "00000000000011000";
+		duty_cycle_tb <=      "001010101010";
+		for i in 0 to NUM_RUN_CYC loop
+			clk_tb <= '1'; wait for DUT_CLK_PERIOD / 2;
+			clk_tb <= '0'; wait for DUT_CLK_PERiOD / 2;
+		end loop;
+		
+		-- Period = 
+		-- Duty cycle = 
+		period_tb     <= "00000000010000000";
+		duty_cycle_tb <=      "000001111111";
+		for i in 0 to NUM_RUN_CYC loop
+			clk_tb <= '1'; wait for DUT_CLK_PERIOD / 2;
+			clk_tb <= '0'; wait for DUT_CLK_PERiOD / 2;
+		end loop;
 	
+	end process;
+		
 end architecture;

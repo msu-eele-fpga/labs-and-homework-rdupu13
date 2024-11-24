@@ -32,11 +32,15 @@ architecture pwm_controller_arch of pwm_controller is
 	
 begin
 	
+	-- Conversion from fixed point to clock-cycle countable integers
 	cyc_per_period <= to_integer(period(16 downto 11)) * CYC_PER_SEC
 		            + to_integer(period(10 downto 0)) * CYC_PER_SEC / 2048;
 	cyc_per_dc     <= to_integer(duty_cycle(10 downto 0)) * cyc_per_period / 2048;
 	dc_is_one      <= (duty_cycle(11) = '1');
 	
+	-- Counter control
+	-- 1 when < cyc_per_dc
+	-- 0 when > cyc_per_dc
 	PULSE_WIDTH_MODULATION : process (clk, rst, cyc_per_period, cyc_per_dc, dc_is_one)
 	begin
 		if rst = '1' then

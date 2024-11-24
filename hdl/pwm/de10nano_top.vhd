@@ -197,8 +197,9 @@ end entity;
 
 architecture de10nano_arch of de10nano_top is
 	
-	signal output_sig : std_logic;
+	signal pd_sig     : unsigned(16 downto 0);
 	signal dc_sig     : unsigned(11 downto 0);
+	signal output_sig : std_logic;
 	
 	component pwm_controller is
 		generic
@@ -235,8 +236,9 @@ begin
 			output     => output_sig
 		);
 	
-	dc_sig <= "0" & unsigned(sw) & "0000000";
+	pd_sig <= "00000000" & unsigned(sw(1 downto 0)) & "0000000";
+	dc_sig <= "0" & unsigned(sw(3 downto 2)) & "000000000";
 	gpio_1 <= "00000000000000000000000000000000000" & output_sig;
-	led    <= std_logic_vector(dc_sig(11 downto 4));
-
+	led    <= output_sig & "0000000";
+	
 end architecture;
