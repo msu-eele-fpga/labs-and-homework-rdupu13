@@ -2,8 +2,9 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity pwd_rgb_led is
-	port (
+entity pwm_rgb_led is
+	port
+	(
 		clk           : in  std_logic;
 		rst           : in  std_logic;
 		-- Avalon memory-mapped slave interface
@@ -13,9 +14,7 @@ entity pwd_rgb_led is
 		avs_readdata  : out std_logic_vector(31 downto 0);
 		avs_writedata : in  std_logic_vector(31 downto 0);
 		-- External I/O; export to top-level
-		push_button   : in  std_logic;
 		switches      : in  std_logic_vector(3 downto 0);
-		led           : out std_logic_vector(7 downto 0);
 		rgb_output    : out std_logic_vector(2 downto 0)
 	);
 end entity;
@@ -24,10 +23,10 @@ architecture pwm_rgb_led_arch of pwm_rgb_led is
 	
 	constant system_clock_period : time := 20 ns;
 	
-	signal period           : std_logic_vector(31 downto 0);
-	signal red_duty_cycle   : std_logic_vector(31 downto 0);
-	signal green_duty_cycle : std_logic_vector(31 downto 0);
-	signal blue_duty_cycle  : std_logic_vector(31 downto 0);
+	signal period           : unsigned(31 downto 0);
+	signal red_duty_cycle   : unsigned(31 downto 0);
+	signal green_duty_cycle : unsigned(31 downto 0);
+	signal blue_duty_cycle  : unsigned(31 downto 0);
 	
 	signal red   : std_logic;
 	signal green : std_logic;
@@ -53,7 +52,7 @@ architecture pwm_rgb_led_arch of pwm_rgb_led is
 begin
 	
 	-- Red PWM controller
-	RED : pwm_controller
+	RED_CONTROL : pwm_controller
 		generic map
 		(
 			CLK_PERIOD => system_clock_period
@@ -68,7 +67,7 @@ begin
 		);
 	
 	-- Green PWM controller
-	GREEN : pwm_controller
+	GREEN_CONTROL : pwm_controller
 		generic map
 		(
 			CLK_PERIOD => system_clock_period
@@ -83,7 +82,7 @@ begin
 		);
 	
 	-- Blue PWM controller
-	BLUE : pwm_controller
+	BLUE_CONTROL : pwm_controller
 		generic map
 		(
 			CLK_PERIOD => system_clock_period
@@ -97,9 +96,7 @@ begin
 			output     => blue
 		);
 	
-	rgb_output <= blue & green & red;
-	
-	
+	rgb_output <= blue & green & red;	
 	
 	-- Read registers
 	AVALON_REGISTER_READ : process(clk, avs_read) is
@@ -107,10 +104,10 @@ begin
 		if rising_edge(clk) and avs_read = '1' then
 			case avs_address is
 				
-				when "00"   => avs_readdata <= red_duty_cycle;
-				when "01"   => avs_readdata <= green_duty_cycle
-				when "10"   => avs_readdata <= blue_duty_cycle;
-				when "11"   => avs_readdata <= period;
+				when "00"   => avs_readdata <= std_logic_vector(red_duty_cycle);
+				when "01"   => avs_readdata <= std_logic_vector(green_duty_cycle);
+				when "10"   => avs_readdata <= std_logic_vector(blue_duty_cycle);
+				when "11"   => avs_readdata <= std_logic_vector(period);
 				when others => avs_readdata <= (others => '0');
 				
 			end case;
@@ -129,10 +126,10 @@ begin
 		elsif rising_edge(clk) and avs_write = '1' then
 			case avs_address is
 				
-				when "00"   => red_duty_cycle   <= avs_writedata;
-				when "01"   => green_duty_cycle <= avs_writedata;
-				when "10"   => blue_duty_cycle  <= avs_writedata;
-				when "11"   => period           <= avs_writedata;
+				when "00"   => red_duty_cycle   <= unsigned(avs_writedata);
+				when "01"   => green_duty_cycle <= unsigned(avs_writedata);
+				when "10"   => blue_duty_cycle  <= unsigned(avs_writedata);
+				when "11"   => period           <= unsigned(avs_writedata);
 				when others => null; -- Ignore writes to unused registers
 				
 			end case;

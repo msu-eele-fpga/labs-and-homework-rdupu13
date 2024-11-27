@@ -791,6 +791,7 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_timing_analysis
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_formal_verification
+set_global_assignment -name QIP_FILE soc_system/synthesis/soc_system.qip
 set_global_assignment -name VHDL_FILE ../../hdl/pwm/pwm_controller_tb.vhd
 set_global_assignment -name VHDL_FILE ../../hdl/pwm/pwm_controller.vhd
 set_global_assignment -name SOURCE_FILE pwm_rgb_controller.qpf
