@@ -1,35 +1,63 @@
-# GitHub Repository for EELE467 Labs and Homework
+# Labs and Homework for EELE 467
 
-This repository will be where all of your code, submissions, and documentation for labs and homeworks will be.
-
-You'll need to update this README as you progress through the semester. See [Make a README](https://www.makeareadme.com/) for an overview of README files.
-
-## Getting Started
-
-Check out the [git workflow documentation](./docs/workflow.md) for instructions on using git and this repository.
-
-## Resources
-
-### Markdown
-
- - [GitHub flavored markdown: basic syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
- - [Basic markdown guide](https://www.markdownguide.org/basic-syntax)
-   - Note that GitHub flavored markdown supports more features than common markdown
-- [GitHub flavored markdown: advanced formatting](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting)
-
-### Git
-
-- [git - the simple guide](https://rogerdudler.github.io/git-guide/)
-- [GitHub Git Guides](https://github.com/git-guides/)
-- [Atlassian git tutorials](https://www.atlassian.com/git/tutorials)
-- [Think like (a) Git](https://think-like-a-git.net/)
-- [Git best practices](https://sethrobertson.github.io/GitBestPractices/)
-- [Command line Git](https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html)
-- [Pro Git book](https://www.git-scm.com/book/en/v2)
-- [GitLab git cheat sheet](https://about.gitlab.com/images/press/git-cheat-sheet.pdf)
-- [GitHub git cheat sheet](https://training.github.com/downloads/github-git-cheat-sheet/)
-- [The art of the commit](https://alistapart.com/article/the-art-of-the-commit/)
+This repository is for Ryan Dupuis' EELE 467 lab and homework assignments. It contains VHDL code,
+C code, Quartus projects, and documentation for development with the De10-Nano SoC FPGA.
 
 
-### READMEs
-- [Make a README](https://www.makeareadme.com/)
+### Chronological List of Assignments
+
+ HW 1  - Introductions              
+ HW 2  - Git and Markdown           
+ HW 3  - Synchronizer               
+Lab 2  - Hardware Hello World       8/
+ HW 4  - Timed Counter              9/
+ HW 5  - Vending Machine            9/
+ HW 6  - Asynchronous Conditioner   9/
+Lab 4  - LED Patterns               9/
+Lab 5  - Signal Tap                 10/
+Lab 6  - Platform Designer          10/
+ HW 7  - Linux CLI                  10/
+
+Lab 1  - Ubuntu                     11/2 - 11/5
+Lab 7  - Verifying Component        11/
+Lab 3  - Developer's Setup          11/
+Lab 8  - LED Patterns Program       11/
+ HW 8  - Hello World LKM            11/
+ HW 9  - PWM Controller             11/
+ HW 10 - RGB LED Controller         11/
+Lab 10 - Device Trees               11/27 - now
+Lab 11 - LED Patterns Device Driver 
+
+### Final Project
+Floating-Point Calculator with LCD Display and breadboard button keyboard
+
+
+The following is a brief description of each directory in the root.
+
+## docs/
+
+
+
+## hdl/
+
+
+
+## linux/
+
+
+
+## quartus/
+
+
+
+## sim/
+
+
+
+## sw/
+
+
+
+## utils/
+
+
