@@ -199,7 +199,10 @@ architecture de10nano_arch of de10nano_top is
 	
 	component soc_system is
 		port
-		(
+		(	
+			clk_clk                         : in    std_logic;
+			reset_reset_n                   : in    std_logic;
+			
 			hps_io_hps_io_emac1_inst_tx_clk : out   std_logic;
 			hps_io_hps_io_emac1_inst_txd0   : out   std_logic;
 			hps_io_hps_io_emac1_inst_txd1   : out   std_logic;
@@ -214,12 +217,14 @@ architecture de10nano_arch of de10nano_top is
 			hps_io_hps_io_emac1_inst_rxd1   : in    std_logic;
 			hps_io_hps_io_emac1_inst_rxd2   : in    std_logic;
 			hps_io_hps_io_emac1_inst_rxd3   : in    std_logic;
+			
 			hps_io_hps_io_sdio_inst_cmd     : inout std_logic;
 			hps_io_hps_io_sdio_inst_d0      : inout std_logic;
 			hps_io_hps_io_sdio_inst_d1      : inout std_logic;
 			hps_io_hps_io_sdio_inst_clk     : out   std_logic;
 			hps_io_hps_io_sdio_inst_d2      : inout std_logic;
 			hps_io_hps_io_sdio_inst_d3      : inout std_logic;
+			
 			hps_io_hps_io_usb1_inst_d0      : inout std_logic;
 			hps_io_hps_io_usb1_inst_d1      : inout std_logic;
 			hps_io_hps_io_usb1_inst_d2      : inout std_logic;
@@ -232,22 +237,27 @@ architecture de10nano_arch of de10nano_top is
 			hps_io_hps_io_usb1_inst_stp     : out   std_logic;
 			hps_io_hps_io_usb1_inst_dir     : in    std_logic;
 			hps_io_hps_io_usb1_inst_nxt     : in    std_logic;
+			
 			hps_io_hps_io_spim1_inst_clk    : out   std_logic;
 			hps_io_hps_io_spim1_inst_mosi   : out   std_logic;
 			hps_io_hps_io_spim1_inst_miso   : in    std_logic;
 			hps_io_hps_io_spim1_inst_ss0    : out   std_logic;
+			
 			hps_io_hps_io_uart0_inst_rx     : in    std_logic;
 			hps_io_hps_io_uart0_inst_tx     : out   std_logic;
+			
 			hps_io_hps_io_i2c0_inst_sda     : inout std_logic;
 			hps_io_hps_io_i2c0_inst_scl     : inout std_logic;
 			hps_io_hps_io_i2c1_inst_sda     : inout std_logic;
 			hps_io_hps_io_i2c1_inst_scl     : inout std_logic;
+			
 			hps_io_hps_io_gpio_inst_gpio09  : inout std_logic;
 			hps_io_hps_io_gpio_inst_gpio35  : inout std_logic;
 			hps_io_hps_io_gpio_inst_gpio40  : inout std_logic;
 			hps_io_hps_io_gpio_inst_gpio53  : inout std_logic;
 			hps_io_hps_io_gpio_inst_gpio54  : inout std_logic;
 			hps_io_hps_io_gpio_inst_gpio61  : inout std_logic;
+			
 			memory_mem_a                    : out   std_logic_vector(14 downto 0);
 			memory_mem_ba                   : out   std_logic_vector(2 downto 0);
 			memory_mem_ck                   : out   std_logic;
@@ -264,18 +274,21 @@ architecture de10nano_arch of de10nano_top is
 			memory_mem_odt                  : out   std_logic;
 			memory_mem_dm                   : out   std_logic_vector(3 downto 0);
 			memory_oct_rzqin                : in    std_logic;
+			
 			pwm_switches                    : in    std_logic_vector(3 downto 0);
-			pwm_rgb_output                  : out   std_logic_vector(2 downto 0);
-			clk_clk                         : in    std_logic;
-			reset_reset_n                   : in    std_logic
+			pwm_rgb_output                  : out   std_logic_vector(2 downto 0)
 		);
 	end component;
 	
 begin
 	
-	HARD_PROCESSOR_SYSTEM : soc_system
+	u0 : soc_system
 		port map
-		(
+		(	
+			-- clk and rst
+			clk_clk        => fpga_clk1_50,
+			reset_reset_n  => push_button_n(1),
+
 			-- ethernet
 			hps_io_hps_io_emac1_inst_tx_clk => hps_enet_gtx_clk,
 			hps_io_hps_io_emac1_inst_txd0   => hps_enet_tx_data(0),
@@ -356,11 +369,9 @@ begin
 			memory_mem_dm      => hps_ddr3_dm,
 			memory_oct_rzqin   => hps_ddr3_rzq,
 			
-			-- External I/O
+			-- pwm
 			pwm_switches   => sw,
-			pwm_rgb_output => gpio_1(9 downto 7),
-			clk_clk        => fpga_clk1_50,
-			reset_reset_n  => push_button_n(1)
+			pwm_rgb_output => gpio_1(9 downto 7)
 		);
 	
 end architecture;

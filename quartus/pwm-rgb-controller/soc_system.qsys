@@ -34,7 +34,7 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "2";
          type = "int";
       }
    }
@@ -42,16 +42,8 @@
    {
       datum _sortIndex
       {
-         value = "2";
+         value = "3";
          type = "int";
-      }
-   }
-   element pwm_rgb_led_0.pwm_avalon_slave
-   {
-      datum baseAddress
-      {
-         value = "1677760";
-         type = "String";
       }
    }
    element soc_system
@@ -324,7 +316,7 @@
  <parameter name="hideFromIPCatalog" value="false" />
  <parameter name="lockedInterfaceDefinition" value="" />
  <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName">pwm_rgb_led_controller.qpf</parameter>
+ <parameter name="projectName" value="pwm-rgb-led.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
  <parameter name="testBenchDutName" value="" />
@@ -891,12 +883,12 @@
   <parameter name="PLI_PORT" value="50000" />
   <parameter name="USE_PLI" value="0" />
  </module>
- <module name="pwm_rgb_led_0" kind="pwm_rgb_led" version="0" enabled="1" />
+ <module name="pwm_rgb_led_0" kind="pwm_rgb_led" version="1.0" enabled="1" />
  <connection
    kind="avalon"
    version="23.1"
    start="hps.h2f_lw_axi_master"
-   end="pwm_rgb_led_0.pwm_avalon_slave">
+   end="pwm_rgb_led_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x001999c0" />
   <parameter name="defaultConnection" value="false" />
@@ -905,17 +897,17 @@
    kind="avalon"
    version="23.1"
    start="master_0.master"
-   end="pwm_rgb_led_0.pwm_avalon_slave">
+   end="pwm_rgb_led_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x001999c0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection kind="clock" version="23.1" start="fpga_clk.clk" end="master_0.clk" />
  <connection
    kind="clock"
    version="23.1"
    start="fpga_clk.clk"
    end="pwm_rgb_led_0.clk" />
- <connection kind="clock" version="23.1" start="fpga_clk.clk" end="master_0.clk" />
  <connection
    kind="clock"
    version="23.1"
