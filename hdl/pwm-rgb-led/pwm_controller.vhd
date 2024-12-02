@@ -26,9 +26,9 @@ architecture pwm_controller_arch of pwm_controller is
 	constant CYC_PER_SEC : natural := 1000000000 ns / CLK_PERIOD;
 	
 	signal cyc_per_period : natural;
-	signal cyc_per_dc : natural;
-	signal dc_is_one : boolean;
-	signal counter   : natural := 0;
+	signal cyc_per_dc     : natural;
+	signal dc_is_one      : boolean;
+	signal counter        : natural := 0;
 	
 begin
 	

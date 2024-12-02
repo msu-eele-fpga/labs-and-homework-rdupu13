@@ -307,6 +307,14 @@
          type = "String";
       }
    }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
@@ -934,13 +942,13 @@
  <connection
    kind="reset"
    version="23.1"
-   start="fpga_clk.clk_reset"
-   end="led_patterns_avalon_0.reset" />
+   start="hps.h2f_reset"
+   end="led_patterns_avalon_0.rst" />
  <connection
    kind="reset"
    version="23.1"
-   start="hps.h2f_reset"
-   end="led_patterns_avalon_0.reset" />
+   start="jtag_mm1.master_reset"
+   end="led_patterns_avalon_0.rst" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>
