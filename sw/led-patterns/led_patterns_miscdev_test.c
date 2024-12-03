@@ -5,12 +5,15 @@
 #include <string.h>
 #include <unistd.h>
 
-// TODO: update these offsets if your address are different
 #define HPS_LED_CONTROL_OFFSET 0x0
-#define BASE_PERIOD_OFFSET 0x4
-#define LED_REG_OFFSET 0x08
+#define LED_REG_OFFSET 0x4
+#define BASE_PERIOD_OFFSET 0x8
 
-int main () {
+/**
+ * 
+ */
+int main (int argc, char **argv)
+{
 	FILE *file;
 	size_t ret;	
 	uint32_t val;
