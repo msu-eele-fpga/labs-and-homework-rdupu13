@@ -5,9 +5,9 @@
 #include <string.h>
 #include <time.h>
 #include <sys/mman.h>	// for mmap
-#include <fcntl.h>	// for file open flags
-#include <unistd.h>	// for getting the page size
-#include <signal.h> // for ctl+c interrupt handling
+#include <fcntl.h>		// for file open flags
+#include <unistd.h>		// for getting the page size
+#include <signal.h>		// for ctl+c interrupt handling
 
 
 
@@ -112,6 +112,12 @@ int get_reg_addr(bool v)
 
 
 
+/**
+ * ctlc_handler() - 
+ * @sig: 
+ * 
+ * 
+ */
 void ctlc_handler(int sig)
 {
 	signal(sig, SIG_IGN);
